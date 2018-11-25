@@ -226,4 +226,11 @@ var advertisements = [
 ];
 
 var map = document.querySelector(".map");
-map.classList.remove('map--faded');
+map.classList.remove("map--faded");
+
+var mapPins = document.querySelector(".map__pins");
+var mapPin = document.createElement("button");
+mapPin.classList.add("map__pin", "map__pin--main");
+mapPin.setAttribute("style", "left: 15px; top: 160px;");
+mapPin.innerHTML = "<img src=\"img/avatars/user01.png\" width=\"40\" height=\"44\" draggable=\"false\" alt=\"Метка объявления\">";
+mapPins.appendChild(mapPin);
