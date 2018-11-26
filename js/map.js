@@ -232,4 +232,7 @@ var firstAdvertisementCard = cardTemplate.cloneNode(true);
 
 var mapFiltersContainer = document.querySelector('map__filters-container');
 
+var popupTitle = firstAdvertisementCard.querySelector('.popup__title');
+popupTitle.textContent = advertisements[0].offer.title;
+
 map.insertBefore(firstAdvertisementCard, mapFiltersContainer);
