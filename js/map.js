@@ -209,6 +209,8 @@ var mapPins = document.querySelector('.map__pins');
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('button');
 
+var advertisementsPinsFragment = document.createDocumentFragment();
+
 for (var i = 0; i < advertisements.length; i++) {
   var currentAdvertisement = advertisements[i];
   var currentPin = pinTemplate.cloneNode(true);
@@ -219,5 +221,7 @@ for (var i = 0; i < advertisements.length; i++) {
   currentPinImg.setAttribute('src', currentAdvertisement.author.avatar);
   currentPinImg.setAttribute('alt', currentAdvertisement.offer.title);
 
-  mapPins.appendChild(currentPin);
+  advertisementsPinsFragment.appendChild(currentPin);
 }
+
+mapPins.appendChild(advertisementsPinsFragment);
