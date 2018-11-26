@@ -215,7 +215,9 @@ for (var i = 0; i < advertisements.length; i++) {
   currentPin.setAttribute('style', 'left:' + currentAdvertisement.location.x + 'px;' + 'top:' + currentAdvertisement.location.y + 'px;');
 
   var currentPinImg = currentPin.querySelector('img');
+
   currentPinImg.setAttribute('src', currentAdvertisement.author.avatar);
+  currentPinImg.setAttribute('alt', currentAdvertisement.offer.title);
 
   mapPins.appendChild(currentPin);
 }
