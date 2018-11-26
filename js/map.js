@@ -225,3 +225,11 @@ for (var i = 0; i < advertisements.length; i++) {
 }
 
 mapPins.appendChild(advertisementsPinsFragment);
+
+var cardTemplate = document.querySelector('#card').content.querySelector('article');
+
+var firstAdvertisementCard = cardTemplate.cloneNode(true);
+
+var mapFiltersContainer = document.querySelector('map__filters-container');
+
+map.insertBefore(firstAdvertisementCard, mapFiltersContainer);
