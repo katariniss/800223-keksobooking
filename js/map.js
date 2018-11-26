@@ -8,7 +8,7 @@ var advertisements = [
 
     'offer': {
       'title': 'Большая уютная квартира',
-      'address': '15, 160',
+      'address': '300, 400',
       'price': 100000,
       'type': 'flat',
       'rooms': 3,
@@ -21,8 +21,8 @@ var advertisements = [
     },
 
     'location': {
-      'x': 15,
-      'y': 160,
+      'x': 300,
+      'y': 400,
     }
   },
 
@@ -33,7 +33,7 @@ var advertisements = [
 
     'offer': {
       'title': 'Маленькая неуютная квартира',
-      'address': '40, 250',
+      'address': '400, 550',
       'price': 30000,
       'type': 'flat',
       'rooms': 1,
@@ -46,8 +46,8 @@ var advertisements = [
     },
 
     'location': {
-      'x': 40,
-      'y': 250,
+      'x': 400,
+      'y': 550,
     }
   },
 
@@ -133,7 +133,7 @@ var advertisements = [
 
     'offer': {
       'title': 'Некрасивый негостеприимный домик',
-      'address': '100, 50',
+      'address': '500, 200',
       'price': 30000,
       'type': 'house',
       'rooms': 2,
@@ -146,8 +146,8 @@ var advertisements = [
     },
 
     'location': {
-      'x': 100,
-      'y': 50,
+      'x': 500,
+      'y': 200,
     }
   },
 
@@ -173,31 +173,6 @@ var advertisements = [
     'location': {
       'x': 200,
       'y': 200,
-    }
-  },
-
-  {
-    'author': {
-      'avatar': 'img/avatars/user06.png'
-    },
-
-    'offer': {
-      'title': 'Некрасивый негостеприимный домик',
-      'address': '100, 50',
-      'price': 30000,
-      'type': 'house',
-      'rooms': 2,
-      'guests': 2,
-      'checkin': '14:00',
-      'checkout': '12:00',
-      'features': ['dishwasher', 'parking', 'washer', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
-    },
-
-    'location': {
-      'x': 100,
-      'y': 50,
     }
   },
 
@@ -238,5 +213,9 @@ for (var i = 0; i < advertisements.length; i++) {
   var currentAdvertisement = advertisements[i];
   var currentPin = pinTemplate.cloneNode(true);
   currentPin.setAttribute('style', 'left:' + currentAdvertisement.location.x + 'px;' + 'top:' + currentAdvertisement.location.y + 'px;');
+
+  var currentPinImg = currentPin.querySelector('img');
+  currentPinImg.setAttribute('src', currentAdvertisement.author.avatar);
+
   mapPins.appendChild(currentPin);
 }
