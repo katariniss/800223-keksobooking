@@ -232,7 +232,58 @@ var firstAdvertisementCard = cardTemplate.cloneNode(true);
 
 var mapFiltersContainer = document.querySelector('map__filters-container');
 
-var popupTitle = firstAdvertisementCard.querySelector('.popup__title');
-popupTitle.textContent = advertisements[0].offer.title;
+var firstAdvertisementOffer = advertisements[0].offer;
+
+setElementContent('.popup__title', firstAdvertisementOffer.title);
+setElementContent('.popup__text--address', firstAdvertisementOffer.address);
+setElementContent('.popup__text--price', firstAdvertisementOffer.price + '₽/ночь');
+
+var accomodationType = '';
+if (firstAdvertisementOffer.type === 'flat') {
+  accomodationType = 'Квартира';
+}
+if (firstAdvertisementOffer.type === 'bungalo') {
+  accomodationType = 'Бунгало';
+}
+if (firstAdvertisementOffer.type === 'house') {
+  accomodationType = 'Дом';
+}
+if (firstAdvertisementOffer.type === 'palace') {
+  accomodationType = 'Дворец';
+}
+
+setElementContent('.popup__type', accomodationType);
+setElementContent('.popup__text--capacity', firstAdvertisementOffer.rooms + ' комнаты для ' + firstAdvertisementOffer.guests + ' гостей');
+setElementContent('.popup__text--time', 'Заезд после ' + firstAdvertisementOffer.checkin + ', выезд до ' + firstAdvertisementOffer.checkout);
+
+var offerFeaturesFragment = document.createDocumentFragment();
+
+var offerFeaturesList = document.createElement('ul');
+offerFeaturesList.classList.add('popup__features');
+
+for (var j = 0; j < firstAdvertisementOffer.features.length; j++) {
+  var currentOfferFeature = firstAdvertisementOffer.features[j];
+
+  var offerFeature = document.createElement('li');
+
+  offerFeature.classList.add('popup__feature', 'popup__feature--' + currentOfferFeature);
+
+  offerFeaturesFragment.appendChild(offerFeature);
+}
+
+offerFeaturesList.appendChild(offerFeaturesFragment);
+
+var featuresListFromTemplate = firstAdvertisementCard.querySelector('ul');
+featuresListFromTemplate.parentNode.replaceChild(offerFeaturesList, featuresListFromTemplate);
+
+setElementContent('.popup__description', firstAdvertisementOffer.description);
+setElementContent('.popup__photos', firstAdvertisementOffer.photos);
+
 
 map.insertBefore(firstAdvertisementCard, mapFiltersContainer);
+
+function setElementContent(selector, textContent) {
+  var elementBySelector = firstAdvertisementCard.querySelector(selector);
+
+  elementBySelector.textContent = textContent;
+}
