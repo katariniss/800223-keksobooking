@@ -310,3 +310,6 @@ function setElementContent(selector, textContent) {
   elementBySelector.textContent = textContent;
 }
 
+var firstCardAvatar = firstAdvertisementCard.querySelector('.popup__avatar');
+var currentAvatarUrl = advertisements[0].author.avatar;
+firstCardAvatar.setAttribute('src', currentAvatarUrl);
