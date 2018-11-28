@@ -214,7 +214,7 @@ var advertisementsPinsFragment = document.createDocumentFragment();
 for (var i = 0; i < advertisements.length; i++) {
   var currentAdvertisement = advertisements[i];
   var currentPin = pinTemplate.cloneNode(true);
-  currentPin.setAttribute('style', 'left:' + currentAdvertisement.location.x + 'px;' + 'top:' + currentAdvertisement.location.y + 'px;');
+  currentPin.setAttribute('style', 'left:' + (currentAdvertisement.location.x - 25) + 'px;' + 'top:' + (currentAdvertisement.location.y - 70) + 'px;');
 
   var currentPinImg = currentPin.querySelector('img');
 
