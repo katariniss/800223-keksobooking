@@ -276,8 +276,30 @@ offerFeaturesList.appendChild(offerFeaturesFragment);
 var featuresListFromTemplate = firstAdvertisementCard.querySelector('ul');
 featuresListFromTemplate.parentNode.replaceChild(offerFeaturesList, featuresListFromTemplate);
 
+
 setElementContent('.popup__description', firstAdvertisementOffer.description);
-setElementContent('.popup__photos', firstAdvertisementOffer.photos);
+
+
+var offerPhotosFragment = document.createDocumentFragment();
+
+var offerPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
+
+var offerPhotosList = document.createElement('div');
+offerPhotosList.classList.add('popup__photos');
+
+for (var k = 0; k < firstAdvertisementOffer.photos.length; k++) {
+  var currentPhotoUrl = firstAdvertisementOffer.photos[k];
+  var currentPhoto = offerPhotoTemplate.cloneNode(true);
+
+  currentPhoto.setAttribute('src', currentPhotoUrl);
+
+  offerPhotosFragment.appendChild(currentPhoto);
+}
+
+offerPhotosList.appendChild(offerPhotosFragment);
+
+var photosFromTemplate = firstAdvertisementCard.querySelector('.popup__photos');
+photosFromTemplate.parentNode.replaceChild(offerPhotosList, photosFromTemplate);
 
 
 map.insertBefore(firstAdvertisementCard, mapFiltersContainer);
@@ -287,3 +309,4 @@ function setElementContent(selector, textContent) {
 
   elementBySelector.textContent = textContent;
 }
+
