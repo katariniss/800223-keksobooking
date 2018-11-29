@@ -5,6 +5,8 @@ var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 var X_MAX = 980;
 var Y_MAX = 750;
+var AVATAR_MIN = 1;
+var AVATAR_MAX = 8;
 
 var ADS_COUNT = 8;
 var advertisements = generateAds(ADS_COUNT);
@@ -20,7 +22,9 @@ function generateAds(numberOfAdvertisements) {
     var locationX = randomInteger (0, X_MAX);
     var locationY = randomInteger (200, Y_MAX);
 
-    result.push(getAdvertisement(roomsNumber, houseType, locationX, locationY));
+    var avatarNumber = randomInteger(AVATAR_MIN, AVATAR_MAX);
+
+    result.push(getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNumber));
   }
   return result;
 }
@@ -31,10 +35,10 @@ function randomInteger(min, max) {
   return rand;
 }
 
-function getAdvertisement(roomsNumber, houseType, locationX, locationY) {
+function getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNumber) {
   return {
     'author': {
-      'avatar': 'img/avatars/user01.png'
+      'avatar': 'img/avatars/user0' + avatarNumber + '.png'
     },
 
     'offer': {
