@@ -3,6 +3,8 @@
 var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo']
 var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
+var X_MAX = 980;
+var Y_MAX = 750;
 
 var ADS_COUNT = 8;
 var advertisements = generateAds(ADS_COUNT);
@@ -11,8 +13,14 @@ function generateAds(numberOfAdvertisements) {
   var result = [];
   for (var i = 0; i < numberOfAdvertisements; i++) {
     var roomsNumber = randomInteger(ROOMS_MIN, ROOMS_MAX);
-    result.push(getAdvertisement(roomsNumber));
-    Math.floor(Math.random() * 4);
+
+    var houseTypeIndex = randomInteger(0, HOUSE_TYPES.length - 1);
+    var houseType = HOUSE_TYPES[houseTypeIndex];
+
+    var locationX = randomInteger (0, X_MAX);
+    var locationY = randomInteger (200, Y_MAX);
+
+    result.push(getAdvertisement(roomsNumber, houseType, locationX, locationY));
   }
   return result;
 }
@@ -23,7 +31,7 @@ function randomInteger(min, max) {
   return rand;
 }
 
-function getAdvertisement(roomsNumber) {
+function getAdvertisement(roomsNumber, houseType, locationX, locationY) {
   return {
     'author': {
       'avatar': 'img/avatars/user01.png'
@@ -33,7 +41,7 @@ function getAdvertisement(roomsNumber) {
       'title': 'Большая уютная квартира',
       'address': '300, 400',
       'price': 100000,
-      'type': 'flat',
+      'type': houseType,
       'rooms': roomsNumber,
       'guests': 6,
       'checkin': '12:00',
@@ -44,8 +52,8 @@ function getAdvertisement(roomsNumber) {
     },
 
     'location': {
-      'x': 300,
-      'y': 400,
+      'x': locationX,
+      'y': locationY,
     }
   };
 }
