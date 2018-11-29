@@ -1,6 +1,6 @@
 'use strict';
 
-var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo']
+var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 var X_MAX = 980;
@@ -18,10 +18,8 @@ function generateAds(numberOfAdvertisements) {
 
     var houseTypeIndex = randomInteger(0, HOUSE_TYPES.length - 1);
     var houseType = HOUSE_TYPES[houseTypeIndex];
-
-    var locationX = randomInteger (0, X_MAX);
-    var locationY = randomInteger (200, Y_MAX);
-
+    var locationX = randomInteger(0, X_MAX);
+    var locationY = randomInteger(200, Y_MAX);
     var avatarNumber = randomInteger(AVATAR_MIN, AVATAR_MAX);
 
     result.push(getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNumber));
