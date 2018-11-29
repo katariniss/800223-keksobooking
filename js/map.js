@@ -1,15 +1,15 @@
 'use strict';
 
-var advertisements = [
-  getAdvertisement(),
-  getAdvertisement(),
-  getAdvertisement(),
-  getAdvertisement(),
-  getAdvertisement(),
-  getAdvertisement(),
-  getAdvertisement(),
-  getAdvertisement(),
-];
+var ADS_COUNT = 8;
+var advertisements = generateAds(ADS_COUNT);
+
+function generateAds(numberOfAdvertisements) {
+  var result = [];
+  for (var i = 0; i < numberOfAdvertisements; i++) {
+    result.push(getAdvertisement());
+  }
+  return result;
+}
 
 function getAdvertisement() {
   return {
