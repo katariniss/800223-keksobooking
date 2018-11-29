@@ -1,17 +1,29 @@
 'use strict';
 
+var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo']
+var ROOMS_MIN = 1;
+var ROOMS_MAX = 5;
+
 var ADS_COUNT = 8;
 var advertisements = generateAds(ADS_COUNT);
 
 function generateAds(numberOfAdvertisements) {
   var result = [];
   for (var i = 0; i < numberOfAdvertisements; i++) {
-    result.push(getAdvertisement());
+    var roomsNumber = randomInteger(ROOMS_MIN, ROOMS_MAX);
+    result.push(getAdvertisement(roomsNumber));
+    Math.floor(Math.random() * 4);
   }
   return result;
 }
 
-function getAdvertisement() {
+function randomInteger(min, max) {
+  var rand = min + Math.random() * (max + 1 - min);
+  rand = Math.floor(rand);
+  return rand;
+}
+
+function getAdvertisement(roomsNumber) {
   return {
     'author': {
       'avatar': 'img/avatars/user01.png'
@@ -22,7 +34,7 @@ function getAdvertisement() {
       'address': '300, 400',
       'price': 100000,
       'type': 'flat',
-      'rooms': 3,
+      'rooms': roomsNumber,
       'guests': 6,
       'checkin': '12:00',
       'checkout': '14:00',
