@@ -11,32 +11,31 @@ var AVATAR_MAX = 8;
 var ADS_COUNT = 8;
 var advertisements = generateAds(ADS_COUNT);
 
-function generateAds(numberOfAdvertisements) {
+function generateAds(numberOfAds) {
   var result = [];
-  for (var i = 0; i < numberOfAdvertisements; i++) {
-    var roomsNumber = randomInteger(ROOMS_MIN, ROOMS_MAX);
 
-    var houseTypeIndex = randomInteger(0, HOUSE_TYPES.length - 1);
-    var houseType = HOUSE_TYPES[houseTypeIndex];
-    var locationX = randomInteger(0, X_MAX);
-    var locationY = randomInteger(200, Y_MAX);
-    var avatarNumber = randomInteger(AVATAR_MIN, AVATAR_MAX);
-
-    result.push(getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNumber));
+  for (var i = 0; i < numberOfAds; i++) {
+    result.push(getAdvertisement());
   }
+
   return result;
 }
 
 function randomInteger(min, max) {
-  var rand = min + Math.random() * (max + 1 - min);
-  rand = Math.floor(rand);
-  return rand;
+  return Math.floor(min + Math.random() * (max + 1 - min));
 }
 
-function getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNumber) {
+function getAdvertisement() {
+  var roomsNumber = randomInteger(ROOMS_MIN, ROOMS_MAX);
+  var houseTypeIndex = randomInteger(0, HOUSE_TYPES.length - 1);
+  var houseType = HOUSE_TYPES[houseTypeIndex];
+  var locationX = randomInteger(0, X_MAX);
+  var locationY = randomInteger(200, Y_MAX);
+  var avatarNumber = randomInteger(AVATAR_MIN, AVATAR_MAX);
+
   return {
     'author': {
-      'avatar': 'img/avatars/user0' + avatarNumber + '.png'
+      'avatar': 'img/avatars/user' + pad(avatarNumber, 2) + '.png'
     },
 
     'offer': {
@@ -50,7 +49,7 @@ function getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNu
       'checkout': '14:00',
       'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
       'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
+      'photos': shuffle(['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']),
     },
 
     'location': {
@@ -60,6 +59,22 @@ function getAdvertisement(roomsNumber, houseType, locationX, locationY, avatarNu
   };
 }
 
+function pad(num, size) {
+  var s = num+"";
+  while (s.length < size) s = "0" + s;
+  return s;
+}
+
+function shuffle(items) {
+  for (var i = 0; i < items.length; i++) {
+      var randomIndex = Math.floor(Math.random() * (i + 1));
+      var temp = items[i];
+      items[i] = items[randomIndex];
+      items[randomIndex] = temp;
+  }
+
+  return items;
+}
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
