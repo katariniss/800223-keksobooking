@@ -7,9 +7,13 @@ var X_MAX = 980;
 var Y_MAX = 750;
 var AVATAR_MIN = 1;
 var AVATAR_MAX = 8;
+var FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 
 var ADS_COUNT = 8;
+
 var advertisements = generateAds(ADS_COUNT);
+
+
 
 function generateAds(numberOfAds) {
   var result = [];
@@ -23,6 +27,29 @@ function generateAds(numberOfAds) {
 
 function randomInteger(min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
+}
+
+function generateFeatures() {
+  var resultWithDuplicates = [];
+
+  for (var i = 0; i < randomInteger(1, 8); i++) {
+    var g = randomInteger(0, FEATURES.length - 1);
+    resultWithDuplicates.push(FEATURES[g]);
+  }
+
+  console.log(resultWithDuplicates);
+
+  var resultWithoutDuplicates = [];
+
+  for (var j = 0; j < resultWithDuplicates.length; j++) {
+    var currentFeature = resultWithDuplicates[j];
+
+    if (resultWithoutDuplicates.indexOf(currentFeature) === -1) {
+      resultWithoutDuplicates.push(currentFeature);
+    }
+  }
+
+  return resultWithoutDuplicates;
 }
 
 function getAdvertisement() {
@@ -47,7 +74,7 @@ function getAdvertisement() {
       'guests': 6,
       'checkin': '12:00',
       'checkout': '14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+      'features': generateFeatures(),
       'description': '',
       'photos': shuffle(['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']),
     },
@@ -59,18 +86,20 @@ function getAdvertisement() {
   };
 }
 
+
+
 function pad(num, size) {
-  var s = num+"";
+  var s = num + "";
   while (s.length < size) s = "0" + s;
   return s;
 }
 
 function shuffle(items) {
   for (var i = 0; i < items.length; i++) {
-      var randomIndex = Math.floor(Math.random() * (i + 1));
-      var temp = items[i];
-      items[i] = items[randomIndex];
-      items[randomIndex] = temp;
+    var randomIndex = Math.floor(Math.random() * (i + 1));
+    var temp = items[i];
+    items[i] = items[randomIndex];
+    items[randomIndex] = temp;
   }
 
   return items;
