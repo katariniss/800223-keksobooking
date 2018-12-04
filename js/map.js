@@ -7,13 +7,11 @@ var X_MAX = 980;
 var Y_MAX = 750;
 var AVATAR_MIN = 1;
 var AVATAR_MAX = 8;
-var FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 var ADS_COUNT = 8;
 
 var advertisements = generateAds(ADS_COUNT);
-
-
 
 function generateAds(numberOfAds) {
   var result = [];
@@ -36,8 +34,6 @@ function generateFeatures() {
     var g = randomInteger(0, FEATURES.length - 1);
     resultWithDuplicates.push(FEATURES[g]);
   }
-
-  console.log(resultWithDuplicates);
 
   var resultWithoutDuplicates = [];
 
@@ -86,11 +82,11 @@ function getAdvertisement() {
   };
 }
 
-
-
 function pad(num, size) {
-  var s = num + "";
-  while (s.length < size) s = "0" + s;
+  var s = num + '';
+  while (s.length < size) {
+    s = '0' + s;
+  }
   return s;
 }
 
@@ -179,9 +175,7 @@ offerFeaturesList.appendChild(offerFeaturesFragment);
 var featuresListFromTemplate = firstAdvertisementCard.querySelector('ul');
 featuresListFromTemplate.parentNode.replaceChild(offerFeaturesList, featuresListFromTemplate);
 
-
 setElementContent('.popup__description', firstAdvertisementOffer.description);
-
 
 var offerPhotosFragment = document.createDocumentFragment();
 
@@ -203,7 +197,6 @@ offerPhotosList.appendChild(offerPhotosFragment);
 
 var photosFromTemplate = firstAdvertisementCard.querySelector('.popup__photos');
 photosFromTemplate.parentNode.replaceChild(offerPhotosList, photosFromTemplate);
-
 
 map.insertBefore(firstAdvertisementCard, mapFiltersContainer);
 
