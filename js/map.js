@@ -35,24 +35,14 @@ function randomInteger(min, max) {
 }
 
 function generateFeatures() {
-  var resultWithDuplicates = [];
+  var featuresCopy = FEATURES.slice(0);
+  var numberOfFeatures = randomInteger(1, FEATURES.length - 1);
 
-  for (var i = 0; i < randomInteger(1, 8); i++) {
-    var g = randomInteger(0, FEATURES.length - 1);
-    resultWithDuplicates.push(FEATURES[g]);
+  for (var i = 0; i < numberOfFeatures; i++) {
+    featuresCopy.splice(randomInteger(0, featuresCopy.length - 1), 1);
   }
 
-  var resultWithoutDuplicates = [];
-
-  for (var j = 0; j < resultWithDuplicates.length; j++) {
-    var currentFeature = resultWithDuplicates[j];
-
-    if (resultWithoutDuplicates.indexOf(currentFeature) === -1) {
-      resultWithoutDuplicates.push(currentFeature);
-    }
-  }
-
-  return resultWithoutDuplicates;
+  return featuresCopy;
 }
 
 function getAdvertisement() {
