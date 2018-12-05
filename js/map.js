@@ -1,7 +1,12 @@
 'use strict';
 
-var HOUSE_TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
+var HOUSE_TITLES = {
+  palace: ['Огромный прекрасный дворец', 'Маленький ужасный дворец'],
+  flat: ['Большая уютная квартира', 'Маленькая неуютная квартира'],
+  bungalo: ['Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
+  house: ['Красивый гостевой домик', 'Некрасивый негостеприимный домик'],
+};
 var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 var X_MAX = 980;
@@ -49,8 +54,9 @@ function getAdvertisement() {
   var roomsNumber = randomInteger(ROOMS_MIN, ROOMS_MAX);
   var houseTypeIndex = randomInteger(0, HOUSE_TYPES.length - 1);
   var houseType = HOUSE_TYPES[houseTypeIndex];
-  var houseTitleIndex = randomInteger(0, HOUSE_TITLES.length - 1);
-  var houseTitle = HOUSE_TITLES[houseTitleIndex];
+  var houseTypeTitles = HOUSE_TITLES[houseType];
+  var houseTitleIndex = randomInteger(0, houseTypeTitles.length - 1);
+  var houseTitle = houseTypeTitles[houseTitleIndex];
   var locationX = randomInteger(0, X_MAX);
   var locationY = randomInteger(200, Y_MAX);
   var avatarNumber = randomInteger(AVATAR_MIN, AVATAR_MAX);
