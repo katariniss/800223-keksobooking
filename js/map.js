@@ -73,7 +73,7 @@ function getAdvertisement() {
 
   return {
     'author': {
-      'avatar': 'img/avatars/user' + pad(avatarNumber, 2) + '.png'
+      'avatar': 'img/avatars/user' + pad(avatarNumber) + '.png'
     },
 
     'offer': {
@@ -97,12 +97,10 @@ function getAdvertisement() {
   };
 }
 
-function pad(num, size) {
-  var s = num + '';
-  while (s.length < size) {
-    s = '0' + s;
-  }
-  return s;
+function pad(num) {
+  return (num < 10)
+    ? '0' + num
+    : num;
 }
 
 function shuffle(items) {
