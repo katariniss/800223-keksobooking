@@ -151,18 +151,37 @@ setElementContent('.popup__text--address', firstAdvertisementOffer.address);
 setElementContent('.popup__text--price', firstAdvertisementOffer.price + '₽/ночь');
 
 var accomodationType = '';
-if (firstAdvertisementOffer.type === 'flat') {
-  accomodationType = 'Квартира';
+switch (firstAdvertisementOffer.type) {
+  case 'flat':
+    accomodationType = 'Квартира';
+    break;
+  case 'bungalo':
+    accomodationType = 'Бунгало';
+    break;
+  case 'house':
+    accomodationType = 'Дом';
+    break;
+  case 'palace':
+    accomodationType = 'Дворец';
+    break;
+
+  default:
+    accomodationType = 'Квартира';
+    break;
 }
-if (firstAdvertisementOffer.type === 'bungalo') {
-  accomodationType = 'Бунгало';
-}
-if (firstAdvertisementOffer.type === 'house') {
-  accomodationType = 'Дом';
-}
-if (firstAdvertisementOffer.type === 'palace') {
-  accomodationType = 'Дворец';
-}
+
+// if (firstAdvertisementOffer.type === 'flat') {
+//   accomodationType = 'Квартира';
+// }
+// if (firstAdvertisementOffer.type === 'bungalo') {
+//   accomodationType = 'Бунгало';
+// }
+// if (firstAdvertisementOffer.type === 'house') {
+//   accomodationType = 'Дом';
+// }
+// if (firstAdvertisementOffer.type === 'palace') {
+//   accomodationType = 'Дворец';
+// }
 
 setElementContent('.popup__type', accomodationType);
 setElementContent('.popup__text--capacity', firstAdvertisementOffer.rooms + ' комнаты для ' + firstAdvertisementOffer.guests + ' гостей');
