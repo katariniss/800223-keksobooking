@@ -34,6 +34,15 @@ function renderMap() {
   showPinCard(advertisements[0]);
 
   map.classList.remove('map--faded');
+
+  disableFormFields();
+}
+
+function disableFormFields() {
+  var adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
+  for (var i = 0; i < adFormFieldsets.length; i++) {
+    adFormFieldsets[i].setAttribute('disabled', 'disabled');
+  }
 }
 
 function generateAds(numberOfAds) {
