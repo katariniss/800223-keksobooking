@@ -30,10 +30,8 @@ renderMap();
 function renderMap() {
   var advertisements = generateAds(ADS_COUNT);
 
-  createPinsOnMap(advertisements);
-  showPinCard(advertisements[0]);
-
-  map.classList.remove('map--faded');
+  // createPinsOnMap(advertisements);
+  // showPinCard(advertisements[0]);
 
   disableFormTags('.ad-form fieldset');
   disableFormTags('.map__filters fieldset');
@@ -46,6 +44,21 @@ function disableFormTags(tagsSelector) {
     tagsToDisable[i].setAttribute('disabled', 'disabled');
   }
 }
+
+function enableFormTags(tagsSelector) {
+  var tagsToEnable = document.querySelectorAll(tagsSelector);
+  for (var i = 0; i < tagsToEnable.length; i++) {
+    tagsToEnable[i].removeAttribute('disabled', 'disabled');
+  }
+}
+
+var mapPinMain = document.querySelector('.map__pin--main');
+mapPinMain.addEventListener('mouseup', function () {
+  map.classList.remove('map--faded');
+  enableFormTags('.ad-form fieldset');
+  enableFormTags('.map__filters fieldset');
+  enableFormTags('.map__filters select');
+});
 
 function generateAds(numberOfAds) {
   var result = [];
