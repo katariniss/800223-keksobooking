@@ -35,13 +35,14 @@ function renderMap() {
 
   map.classList.remove('map--faded');
 
-  disableFormFields();
+  disableFieldset('.ad-form');
+  disableFieldset('.map__filters');
 }
 
-function disableFormFields() {
-  var adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
-  for (var i = 0; i < adFormFieldsets.length; i++) {
-    adFormFieldsets[i].setAttribute('disabled', 'disabled');
+function disableFieldset(formSelector) {
+  var fieldsets = document.querySelectorAll(formSelector + ' fieldset');
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].setAttribute('disabled', 'disabled');
   }
 }
 
