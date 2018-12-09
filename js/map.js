@@ -28,10 +28,6 @@ var map = document.querySelector('.map');
 renderMap();
 
 function renderMap() {
-  var advertisements = generateAds(ADS_COUNT);
-
-  createPinsOnMap(advertisements);
-  subscribeOnPinsClick(advertisements);
   disableFormTags('.ad-form fieldset');
   disableFormTags('.map__filters fieldset');
   disableFormTags('.map__filters select');
@@ -54,6 +50,10 @@ function enableFormTags(tagsSelector) {
 
 var mapPinMain = document.querySelector('.map__pin--main');
 mapPinMain.addEventListener('mouseup', function () {
+  var advertisements = generateAds(ADS_COUNT);
+
+  createPinsOnMap(advertisements);
+  subscribeOnPinsClick(advertisements);
   map.classList.remove('map--faded');
   enableFormTags('.ad-form fieldset');
   enableFormTags('.map__filters fieldset');
