@@ -30,12 +30,12 @@ renderMap();
 function renderMap() {
   var advertisements = generateAds(ADS_COUNT);
 
-  // createPinsOnMap(advertisements);
-  // showPinCard(advertisements[0]);
-
+  createPinsOnMap(advertisements);
+  subscribeOnPinsClick(advertisements);
   disableFormTags('.ad-form fieldset');
   disableFormTags('.map__filters fieldset');
   disableFormTags('.map__filters select');
+
 }
 
 function disableFormTags(tagsSelector) {
@@ -59,6 +59,19 @@ mapPinMain.addEventListener('mouseup', function () {
   enableFormTags('.map__filters fieldset');
   enableFormTags('.map__filters select');
 });
+
+function subscribeOnPinsClick(advertisements) {
+  var pins = document.querySelectorAll('.map__pin');
+
+  for (var i = 0; i < pins.length; i++) {
+    var currentPin = pins[i];
+    if (!currentPin.classList.contains('map__pin--main')) {
+      currentPin.addEventListener('click', function () {
+        showPinCard(advertisements[0]);
+      });
+    }
+  }
+}
 
 function generateAds(numberOfAds) {
   var result = [];
