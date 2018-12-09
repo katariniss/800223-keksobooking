@@ -66,10 +66,23 @@ function subscribeOnPinsClick(advertisements) {
   for (var i = 0; i < pins.length; i++) {
     var currentPin = pins[i];
     if (!currentPin.classList.contains('map__pin--main')) {
-      currentPin.addEventListener('click', function () {
-        showPinCard(advertisements[0]);
-      });
+      currentPin.addEventListener('click', onPinClick);
     }
+  }
+  function onPinClick() {
+    showPinCard(advertisements[0]);
+    var closePopupButton = document.querySelector('.popup__close');
+    var popup = document.querySelector('.map__card.popup');
+
+    closePopupButton.addEventListener('click', function () {
+      popup.parentNode.removeChild(popup);
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        popup.parentNode.removeChild(popup);
+      }
+    });
   }
 }
 
