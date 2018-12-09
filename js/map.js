@@ -31,7 +31,33 @@ function renderMap() {
   disableFormTags('.ad-form fieldset');
   disableFormTags('.map__filters fieldset');
   disableFormTags('.map__filters select');
+  fillInitialAddress();
 
+}
+
+function getOffset(el) {
+  var rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+}
+
+function fillInitialAddress() {
+  setAddressField(31, 31);
+}
+
+function setAddressField(offsetX, offsetY) {
+  var mainPin = document.querySelector('.map__pins').querySelector('.map__pin--main');
+  var elementCoordinates = getOffset(mainPin);
+  var addressX = elementCoordinates.left + offsetX;
+  var addressY = elementCoordinates.top + offsetY;
+  setAddressFieldValue(addressX, addressY);
+}
+
+function setAddressFieldValue(x, y) {
+  var addressField = document.querySelector('#address');
+  addressField.setAttribute('value', x + ', ' + y);
 }
 
 function disableFormTags(tagsSelector) {
@@ -58,6 +84,8 @@ mapPinMain.addEventListener('mouseup', function () {
   enableFormTags('.ad-form fieldset');
   enableFormTags('.map__filters fieldset');
   enableFormTags('.map__filters select');
+
+  setAddressField(31, 53);
 });
 
 function subscribeOnPinsClick(advertisements) {
