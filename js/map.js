@@ -23,12 +23,15 @@ var GUESTS_MAX = 10;
 
 var ADS_COUNT = 8;
 
-var filterForm = document.querySelector('.map__filters');
-var adForm = document.querySelector('.ad-form');
+// var filterForm = document.querySelector('.map__filters');
+// var adForm = document.querySelector('.ad-form');
 
 var map = document.querySelector('.map');
 
 resetMapToDefault();
+
+var mapPinMain = document.querySelector('.map__pin--main');
+mapPinMain.addEventListener('mouseup', renderMap);
 
 function renderMap() {
   var advertisements = generateAds(ADS_COUNT);
@@ -38,36 +41,33 @@ function renderMap() {
   enableFormTags('.ad-form fieldset');
   enableFormTags('.map__filters fieldset');
   enableFormTags('.map__filters select');
-  activateFilterForm();
-  activateAdForm();
+  // activateFilterForm();
+  // activateAdForm();
 
   setAddressField(31, 53);
 }
 
 function resetMapToDefault() {
+  map.classList.add('map--faded');
   disableFormTags('.ad-form fieldset');
   disableFormTags('.map__filters fieldset');
   disableFormTags('.map__filters select');
-  resetAdForm();
-  resetFilterForm();
+  // resetAdForm();
+  // resetFilterForm();
   setAddressField(31, 31);
 }
 
-function resetFilterForm() {
-  filterForm.setAttribute('disabled', 'disabled');
-}
+// function resetFilterForm() {
+// }
 
-function resetAdForm() {
-  adForm.setAttribute('disabled', 'disabled');
-}
+// function resetAdForm() {
+// }
 
-function activateFilterForm() {
-  filterForm.removeAttribute('disabled', 'disabled');
-}
+// function activateFilterForm() {
+// }
 
-function activateAdForm() {
-  adForm.removeAttribute('disabled', 'disabled');
-}
+// function activateAdForm() {
+// }
 
 function getOffset(el) {
   var rect = el.getBoundingClientRect();
@@ -103,9 +103,6 @@ function enableFormTags(tagsSelector) {
     tagsToEnable[i].removeAttribute('disabled', 'disabled');
   }
 }
-
-var mapPinMain = document.querySelector('.map__pin--main');
-mapPinMain.addEventListener('mouseup', renderMap);
 
 function generateAds(numberOfAds) {
   var result = [];
