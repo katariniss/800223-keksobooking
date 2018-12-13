@@ -38,36 +38,36 @@ function renderMap() {
 
   createPinsOnMap(advertisements);
   map.classList.remove('map--faded');
-  enableFormTags('.ad-form fieldset');
-  enableFormTags('.map__filters fieldset');
-  enableFormTags('.map__filters select');
-  // activateFilterForm();
-  // activateAdForm();
+  activateFilterForm();
+  activateAdForm();
 
   setAddressField(31, 53);
 }
 
 function resetMapToDefault() {
   map.classList.add('map--faded');
-  disableFormTags('.ad-form fieldset');
-  disableFormTags('.map__filters fieldset');
-  disableFormTags('.map__filters select');
-  // resetAdForm();
-  // resetFilterForm();
+  resetAdForm();
+  resetFilterForm();
   setAddressField(31, 31);
 }
 
-// function resetFilterForm() {
-// }
+function resetFilterForm() {
+  disableFormTags('.map__filters fieldset');
+  disableFormTags('.map__filters select');
+}
 
-// function resetAdForm() {
-// }
+function resetAdForm() {
+  disableFormTags('.ad-form fieldset');
+}
 
-// function activateFilterForm() {
-// }
+function activateFilterForm() {
+  enableFormTags('.map__filters fieldset');
+  enableFormTags('.map__filters select');
+}
 
-// function activateAdForm() {
-// }
+function activateAdForm() {
+  enableFormTags('.ad-form fieldset');
+}
 
 function getOffset(el) {
   var rect = el.getBoundingClientRect();
