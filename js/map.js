@@ -23,17 +23,85 @@ var GUESTS_MAX = 10;
 
 var ADS_COUNT = 8;
 
+// var filterForm = document.querySelector('.map__filters');
+// var adForm = document.querySelector('.ad-form');
+
 var map = document.querySelector('.map');
 
-renderMap();
+resetMapToDefault();
+
+var mapPinMain = document.querySelector('.map__pin--main');
+mapPinMain.addEventListener('mouseup', renderMap);
 
 function renderMap() {
   var advertisements = generateAds(ADS_COUNT);
 
   createPinsOnMap(advertisements);
-  showPinCard(advertisements[0]);
-
   map.classList.remove('map--faded');
+  activateFilterForm();
+  activateAdForm();
+
+  setAddressField(31, 53);
+}
+
+function resetMapToDefault() {
+  map.classList.add('map--faded');
+  resetAdForm();
+  resetFilterForm();
+  setAddressField(31, 31);
+}
+
+function resetFilterForm() {
+  disableFormTags('.map__filters fieldset');
+  disableFormTags('.map__filters select');
+}
+
+function resetAdForm() {
+  disableFormTags('.ad-form fieldset');
+}
+
+function activateFilterForm() {
+  enableFormTags('.map__filters fieldset');
+  enableFormTags('.map__filters select');
+}
+
+function activateAdForm() {
+  enableFormTags('.ad-form fieldset');
+}
+
+function getOffset(el) {
+  var rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+}
+
+function setAddressField(offsetX, offsetY) {
+  var mainPin = document.querySelector('.map__pins').querySelector('.map__pin--main');
+  var elementCoordinates = getOffset(mainPin);
+  var addressX = elementCoordinates.left + offsetX;
+  var addressY = elementCoordinates.top + offsetY;
+  setAddressFieldValue(addressX, addressY);
+}
+
+function setAddressFieldValue(x, y) {
+  var addressField = document.querySelector('#address');
+  addressField.setAttribute('value', x + ', ' + y);
+}
+
+function disableFormTags(tagsSelector) {
+  var tagsToDisable = document.querySelectorAll(tagsSelector);
+  for (var i = 0; i < tagsToDisable.length; i++) {
+    tagsToDisable[i].setAttribute('disabled', 'disabled');
+  }
+}
+
+function enableFormTags(tagsSelector) {
+  var tagsToEnable = document.querySelectorAll(tagsSelector);
+  for (var i = 0; i < tagsToEnable.length; i++) {
+    tagsToEnable[i].removeAttribute('disabled', 'disabled');
+  }
 }
 
 function generateAds(numberOfAds) {
@@ -139,6 +207,14 @@ function createPinsOnMap(objects) {
     pinImg.setAttribute('src', object.author.avatar);
     pinImg.setAttribute('alt', object.offer.title);
 
+    pin.addEventListener('click', function () {
+      var openedCard = document.querySelector('.map__card.popup');
+      if (openedCard) {
+        openedCard.parentNode.removeChild(openedCard);
+      }
+      showPinCard(object);
+    });
+
     return pin;
   }
 }
@@ -163,6 +239,18 @@ function showPinCard(object) {
 
   fillCardFeatures(object.offer.features);
   fillCardPhotos(object.offer.photos);
+
+  var closePopupButton = card.querySelector('.popup__close');
+
+  closePopupButton.addEventListener('click', function () {
+    card.parentNode.removeChild(card);
+  });
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 27) {
+      card.parentNode.removeChild(card);
+    }
+  });
 
   map.appendChild(card);
 
