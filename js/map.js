@@ -32,6 +32,8 @@ var adForm = document.querySelector('.ad-form');
 var map = document.querySelector('.map');
 var mapPinMain = map.querySelector('.map__pin--main');
 var clearButton = adForm.querySelector('.ad-form__reset');
+var accomodationTypeInForm = document.getElementById('type');
+var priceInForm = document.getElementById('price');
 
 resetMapToDefault();
 
@@ -92,6 +94,18 @@ function removePins() {
     }
   }
 }
+
+accomodationTypeInForm.addEventListener('change', function () {
+  if (accomodationTypeInForm.value === 'palace') {
+    priceInForm.min = '10000';
+  } else if (accomodationTypeInForm.value === 'flat') {
+    priceInForm.min = '1000';
+  } else if (accomodationTypeInForm.value === 'bungalo') {
+    priceInForm.min = '10';
+  } else if (accomodationTypeInForm.value === 'house') {
+    priceInForm.min = '5000';
+  }
+});
 
 function getOffset(el) {
   var rect = el.getBoundingClientRect();
