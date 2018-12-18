@@ -111,6 +111,17 @@ accomodationTypeInForm.addEventListener('change', function () {
   }
 });
 
+var timeIn = document.getElementById('timein');
+var timeOut = document.getElementById('timeout');
+
+timeIn.addEventListener('change', function () {
+  timeOut.value = timeIn.value;
+});
+
+timeOut.addEventListener('change', function () {
+  timeIn.value = timeOut.value;
+});
+
 function getOffset(el) {
   var rect = el.getBoundingClientRect();
   return {
