@@ -98,12 +98,16 @@ function removePins() {
 accomodationTypeInForm.addEventListener('change', function () {
   if (accomodationTypeInForm.value === 'palace') {
     priceInForm.min = '10000';
+    priceInForm.placeholder = '10000';
   } else if (accomodationTypeInForm.value === 'flat') {
     priceInForm.min = '1000';
+    priceInForm.placeholder = '1000';
   } else if (accomodationTypeInForm.value === 'bungalo') {
-    priceInForm.min = '10';
+    priceInForm.min = '0';
+    priceInForm.placeholder = '0';
   } else if (accomodationTypeInForm.value === 'house') {
     priceInForm.min = '5000';
+    priceInForm.placeholder = '5000';
   }
 });
 
