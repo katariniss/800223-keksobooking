@@ -31,6 +31,7 @@ var adForm = document.querySelector('.ad-form');
 
 var map = document.querySelector('.map');
 var mapPinMain = map.querySelector('.map__pin--main');
+var clearButton = adForm.querySelector('.ad-form__reset');
 
 resetMapToDefault();
 
@@ -51,6 +52,11 @@ function resetMapToDefault() {
   toggleFilterForm(true);
   setAddressFieldValue();
   mapPinMain.addEventListener('mouseup', renderMap);
+  removePins();
+  var openedCard = document.querySelector('.map__card.popup');
+  if (openedCard) {
+    removeElementFromDom(openedCard);
+  }
 }
 
 function toggleFilterForm(isDisabled) {
@@ -72,6 +78,18 @@ function toggleAdForm(isDisabled) {
   }
   if (isDisabled) {
     adForm.reset();
+  }
+}
+
+clearButton.addEventListener('click', resetMapToDefault);
+
+function removePins() {
+  var pins = document.querySelectorAll('.map__pin');
+  for (var i = 0; i < pins.length; i++) {
+    var currentPin = pins[i];
+    if (!currentPin.classList.contains('map__pin--main')) {
+      removeElementFromDom(currentPin);
+    }
   }
 }
 
@@ -198,13 +216,17 @@ function createPinsOnMap(objects) {
     pin.addEventListener('click', function () {
       var openedCard = document.querySelector('.map__card.popup');
       if (openedCard) {
-        openedCard.parentNode.removeChild(openedCard);
+        removeElementFromDom(openedCard);
       }
       showPinCard(object);
     });
 
     return pin;
   }
+}
+
+function removeElementFromDom(element) {
+  element.parentNode.removeChild(element);
 }
 
 function showPinCard(object) {
@@ -231,12 +253,12 @@ function showPinCard(object) {
   var closePopupButton = card.querySelector('.popup__close');
 
   closePopupButton.addEventListener('click', function () {
-    card.parentNode.removeChild(card);
+    removeElementFromDom(card);
   });
 
   function closePopup(evt) {
     if (evt.keyCode === 27) {
-      card.parentNode.removeChild(card);
+      removeElementFromDom(card);
       document.removeEventListener('keydown', closePopup);
     }
   }
