@@ -80,6 +80,9 @@ function toggleAdForm(isDisabled) {
   }
   if (isDisabled) {
     adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+  } else {
+    adForm.classList.remove('ad-form--disabled');
   }
 }
 
