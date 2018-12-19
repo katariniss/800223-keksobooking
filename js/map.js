@@ -125,6 +125,38 @@ timeOut.addEventListener('change', function () {
   timeIn.value = timeOut.value;
 });
 
+var roomsNumberInForm = document.getElementById('room_number');
+// var capacityInForm = document.getElementById('capacity');
+var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
+
+roomsNumberInForm.addEventListener('change', function () {
+  for (var i = 0; i < capacityOptions.length; i++) {
+    var currentCapacityOption = capacityOptions[i];
+    currentCapacityOption.setAttribute('disabled', true);
+  }
+
+  var availableCapacityOptions = getAvailableCapacityOptions(roomsNumberInForm.value);
+
+  for (var j = 0; j < availableCapacityOptions.length; j++) {
+    var currentAvailableOption = availableCapacityOptions[j];
+    currentAvailableOption.removeAttribute('disabled');
+  }
+});
+
+function getAvailableCapacityOptions(roomsNumber) {
+  if (roomsNumber === '1') {
+    return [capacityOptions[2]];
+  } else if (roomsNumber === '2') {
+    return [capacityOptions[1], capacityOptions[2]];
+  } else if (roomsNumber === '3') {
+    return [capacityOptions[0], capacityOptions[1], capacityOptions[2]];
+  } else if (roomsNumber === '100') {
+    return [capacityOptions[3]];
+  }
+
+  return [];
+}
+
 function getOffset(el) {
   var rect = el.getBoundingClientRect();
   return {
