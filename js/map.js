@@ -129,7 +129,13 @@ var roomsNumberInForm = document.getElementById('room_number');
 var capacityInForm = document.getElementById('capacity');
 var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
 
+syncRoomsNumberWithCapacity();
+
 roomsNumberInForm.addEventListener('change', function () {
+  syncRoomsNumberWithCapacity();
+});
+
+function syncRoomsNumberWithCapacity() {
   for (var i = 0; i < capacityOptions.length; i++) {
     var currentCapacityOption = capacityOptions[i];
     currentCapacityOption.setAttribute('disabled', true);
@@ -154,7 +160,7 @@ roomsNumberInForm.addEventListener('change', function () {
     var currentAvailableOption = availableCapacityOptions[j];
     currentAvailableOption.removeAttribute('disabled');
   }
-});
+}
 
 function getAvailableCapacityOptions(roomsNumber) {
   if (roomsNumber === '1') {
