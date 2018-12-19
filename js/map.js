@@ -34,6 +34,11 @@ var mapPinMain = map.querySelector('.map__pin--main');
 var clearButton = adForm.querySelector('.ad-form__reset');
 var accomodationTypeInForm = document.getElementById('type');
 var priceInForm = document.getElementById('price');
+var timeIn = document.getElementById('timein');
+var timeOut = document.getElementById('timeout');
+var roomsNumberInForm = document.getElementById('room_number');
+var capacityInForm = document.getElementById('capacity');
+var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
 
 resetMapToDefault();
 
@@ -114,9 +119,6 @@ accomodationTypeInForm.addEventListener('change', function () {
   }
 });
 
-var timeIn = document.getElementById('timein');
-var timeOut = document.getElementById('timeout');
-
 timeIn.addEventListener('change', function () {
   timeOut.value = timeIn.value;
 });
@@ -124,10 +126,6 @@ timeIn.addEventListener('change', function () {
 timeOut.addEventListener('change', function () {
   timeIn.value = timeOut.value;
 });
-
-var roomsNumberInForm = document.getElementById('room_number');
-var capacityInForm = document.getElementById('capacity');
-var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
 
 syncRoomsNumberWithCapacity();
 
