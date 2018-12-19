@@ -126,7 +126,7 @@ timeOut.addEventListener('change', function () {
 });
 
 var roomsNumberInForm = document.getElementById('room_number');
-// var capacityInForm = document.getElementById('capacity');
+var capacityInForm = document.getElementById('capacity');
 var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
 
 roomsNumberInForm.addEventListener('change', function () {
@@ -136,6 +136,19 @@ roomsNumberInForm.addEventListener('change', function () {
   }
 
   var availableCapacityOptions = getAvailableCapacityOptions(roomsNumberInForm.value);
+
+  var needToClearCapacityValue = true;
+  for (var k = 0; k < availableCapacityOptions.length; k++) {
+    var currentOption = availableCapacityOptions[k];
+
+    if (currentOption.value === capacityInForm.value) {
+      needToClearCapacityValue = false;
+    }
+  }
+
+  if (needToClearCapacityValue) {
+    capacityInForm.value = null;
+  }
 
   for (var j = 0; j < availableCapacityOptions.length; j++) {
     var currentAvailableOption = availableCapacityOptions[j];
