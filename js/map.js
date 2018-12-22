@@ -101,12 +101,10 @@ function toggleAdForm(isDisabled) {
 clearButton.addEventListener('click', resetMapToDefault);
 
 function removePins() {
-  var pins = document.querySelectorAll('.map__pin');
+  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pins.length; i++) {
     var currentPin = pins[i];
-    if (!currentPin.classList.contains('map__pin--main')) {
-      removeElementFromDom(currentPin);
-    }
+    removeElementFromDom(currentPin);
   }
 }
 
