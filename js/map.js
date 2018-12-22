@@ -109,18 +109,22 @@ function removePins() {
 }
 
 function getPriceByAccomodation() {
-  if (accomodationTypeInForm.value === 'palace') {
-    priceInForm.min = '10000';
-    priceInForm.placeholder = '10000';
-  } else if (accomodationTypeInForm.value === 'flat') {
-    priceInForm.min = '1000';
-    priceInForm.placeholder = '1000';
-  } else if (accomodationTypeInForm.value === 'bungalo') {
-    priceInForm.min = '0';
-    priceInForm.placeholder = '0';
-  } else if (accomodationTypeInForm.value === 'house') {
-    priceInForm.min = '5000';
-    priceInForm.placeholder = '5000';
+  switch (accomodationTypeInForm.value) {
+    case 'palace':
+      priceInForm.min = '10000';
+      priceInForm.placeholder = '10000';
+      break;
+    case 'flat':
+      priceInForm.min = '1000';
+      priceInForm.placeholder = '1000';
+      break;
+    case 'bungalo':
+      priceInForm.min = '0';
+      priceInForm.placeholder = '0';
+      break;
+    case 'house':
+      priceInForm.min = '5000';
+      priceInForm.placeholder = '5000';
   }
 }
 
