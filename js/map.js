@@ -40,6 +40,13 @@ var roomsNumberInForm = document.getElementById('room_number');
 var capacityInForm = document.getElementById('capacity');
 var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
 
+var ROOMS_SYNC_CAPACITY = {
+  1: [getCapacityOptionBy(1)],
+  2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
+  3: [getCapacityOptionBy(1), getCapacityOptionBy(2), getCapacityOptionBy(3)],
+  100: [getCapacityOptionBy(0)]
+};
+
 resetMapToDefault();
 
 function renderMap() {
@@ -161,17 +168,18 @@ function syncRoomsNumberWithCapacity() {
 }
 
 function getAvailableCapacityOptions(roomsNumber) {
-  if (roomsNumber === '1') {
-    return [capacityOptions[2]];
-  } else if (roomsNumber === '2') {
-    return [capacityOptions[1], capacityOptions[2]];
-  } else if (roomsNumber === '3') {
-    return [capacityOptions[0], capacityOptions[1], capacityOptions[2]];
-  } else if (roomsNumber === '100') {
-    return [capacityOptions[3]];
-  }
+  return ROOMS_SYNC_CAPACITY[roomsNumber];
+}
 
-  return [];
+function getCapacityOptionBy(numberOfPeople) {
+  var numberOfPeopleStr = numberOfPeople.toString();
+  for (var i = 0; i < capacityOptions.length; i++) {
+    var currentCapacityOption = capacityOptions[i];
+    if (currentCapacityOption.value === numberOfPeopleStr) {
+      return currentCapacityOption;
+    }
+  }
+  return undefined;
 }
 
 function getOffset(el) {
