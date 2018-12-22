@@ -151,9 +151,7 @@ function syncRoomsNumberWithCapacity() {
 
   var needToClearCapacityValue = true;
   for (var k = 0; k < availableCapacityOptions.length; k++) {
-    if (availableCapacityOptions[k].value === capacityInForm.value) {
-      needToClearCapacityValue = false;
-    }
+    needToClearCapacityValue = needToClearCapacityValue && !(availableCapacityOptions[k].value === capacityInForm.value);
   }
 
   if (needToClearCapacityValue) {
