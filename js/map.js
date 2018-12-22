@@ -108,7 +108,7 @@ function removePins() {
   }
 }
 
-accomodationTypeInForm.addEventListener('change', function () {
+function getPriceByAccomodation() {
   if (accomodationTypeInForm.value === 'palace') {
     priceInForm.min = '10000';
     priceInForm.placeholder = '10000';
@@ -122,7 +122,9 @@ accomodationTypeInForm.addEventListener('change', function () {
     priceInForm.min = '5000';
     priceInForm.placeholder = '5000';
   }
-});
+}
+
+accomodationTypeInForm.addEventListener('change', getPriceByAccomodation);
 
 timeIn.addEventListener('change', function () {
   timeOut.value = timeIn.value;
@@ -134,23 +136,18 @@ timeOut.addEventListener('change', function () {
 
 syncRoomsNumberWithCapacity();
 
-roomsNumberInForm.addEventListener('change', function () {
-  syncRoomsNumberWithCapacity();
-});
+roomsNumberInForm.addEventListener('change', syncRoomsNumberWithCapacity);
 
 function syncRoomsNumberWithCapacity() {
   for (var i = 0; i < capacityOptions.length; i++) {
-    var currentCapacityOption = capacityOptions[i];
-    currentCapacityOption.setAttribute('disabled', true);
+    capacityOptions[i].disabled = true;
   }
 
   var availableCapacityOptions = getAvailableCapacityOptions(roomsNumberInForm.value);
 
   var needToClearCapacityValue = true;
   for (var k = 0; k < availableCapacityOptions.length; k++) {
-    var currentOption = availableCapacityOptions[k];
-
-    if (currentOption.value === capacityInForm.value) {
+    if (availableCapacityOptions[k].value === capacityInForm.value) {
       needToClearCapacityValue = false;
     }
   }
