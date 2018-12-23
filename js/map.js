@@ -149,19 +149,16 @@ function syncRoomsNumberWithCapacity() {
 
   var availableCapacityOptions = getAvailableCapacityOptions(roomsNumberInForm.value);
 
-  var needToClearCapacityValue = true;
+  var needToChangeCapacityValue = true;
   for (var k = 0; k < availableCapacityOptions.length; k++) {
-    needToClearCapacityValue = needToClearCapacityValue && !(availableCapacityOptions[k].value === capacityInForm.value);
-  }
-
-  if (needToClearCapacityValue) {
-    capacityInForm.value = null;
+    needToChangeCapacityValue = needToChangeCapacityValue && !(availableCapacityOptions[k].value === capacityInForm.value);
   }
 
   for (var j = 0; j < availableCapacityOptions.length; j++) {
     var currentAvailableOption = availableCapacityOptions[j];
     currentAvailableOption.removeAttribute('disabled');
   }
+  availableCapacityOptions[0].selected = true;
 }
 
 function getAvailableCapacityOptions(roomsNumber) {
