@@ -26,6 +26,11 @@ var ADS_COUNT = 8;
 var MAIN_PIN_WIDTH = 65;
 var MAIN_PIN_HEIGHT = 87;
 
+var MAIN_PIN_MIN_X = 0;
+var MAIN_PIN_MAX_X = 1135;
+var MAIN_PIN_MIN_Y = 110;
+var MAIN_PIN_MAX_Y = 630;
+
 var filterForm = document.querySelector('.map__filters');
 var adForm = document.querySelector('.ad-form');
 
@@ -94,13 +99,40 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       y: moveEvt.clientY
     };
 
-    mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-    mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+    window.mapPinMainCoordinates = {
+      x: mapPinMain.offsetLeft - shift.x,
+      y: mapPinMain.offsetTop - shift.y
+    };
+
+    var newTop = (mapPinMain.offsetTop - shift.y);
+    var newLeft = (mapPinMain.offsetLeft - shift.x);
+
+    if (newTop > MAIN_PIN_MAX_Y) {
+      newTop = MAIN_PIN_MAX_Y;
+    }
+
+    if (newTop < MAIN_PIN_MIN_Y) {
+      newTop = MAIN_PIN_MIN_Y;
+    }
+
+    if (newLeft < MAIN_PIN_MIN_X) {
+      newLeft = MAIN_PIN_MIN_X;
+    }
+
+    if (newLeft > MAIN_PIN_MAX_X) {
+      newLeft = MAIN_PIN_MAX_X;
+    }
+
+    mapPinMain.style.top = newTop + 'px';
+    mapPinMain.style.left = newLeft + 'px';
+
+    window.setAddressFieldValue(window.mapPinMainCoordinates.x, window.mapPinMainCoordinates.y);
   }
 
   function onMouseUp(upEvt) {
     upEvt.preventDefault();
 
+    window.setAddressFieldValue(window.mapPinMainCoordinates.x, window.mapPinMainCoordinates.y);
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   }
