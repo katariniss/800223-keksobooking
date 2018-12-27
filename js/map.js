@@ -26,6 +26,11 @@ var ADS_COUNT = 8;
 var MAIN_PIN_WIDTH = 65;
 var MAIN_PIN_HEIGHT = 87;
 
+var MAIN_PIN_MIN_X = 0;
+var MAIN_PIN_MAX_X = 1135;
+var MAIN_PIN_MIN_Y = 110;
+var MAIN_PIN_MAX_Y = 630;
+
 var filterForm = document.querySelector('.map__filters');
 var adForm = document.querySelector('.ad-form');
 
@@ -72,6 +77,74 @@ function resetMapToDefault() {
     removeElementFromDom(openedCard);
   }
 }
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  function onMouseMove(moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    window.mapPinMainCoordinates = {
+      x: mapPinMain.offsetLeft - shift.x,
+      y: mapPinMain.offsetTop - shift.y
+    };
+
+    var newTop = (mapPinMain.offsetTop - shift.y);
+    var newLeft = (mapPinMain.offsetLeft - shift.x);
+
+    if (newTop > MAIN_PIN_MAX_Y) {
+      newTop = MAIN_PIN_MAX_Y;
+    }
+
+    if (newTop < MAIN_PIN_MIN_Y) {
+      newTop = MAIN_PIN_MIN_Y;
+    }
+
+    if (newLeft < MAIN_PIN_MIN_X) {
+      newLeft = MAIN_PIN_MIN_X;
+    }
+
+    if (newLeft > MAIN_PIN_MAX_X) {
+      newLeft = MAIN_PIN_MAX_X;
+    }
+
+    window.mapPinMainCoordinates = {
+      x: newLeft,
+      y: newTop
+    };
+
+    mapPinMain.style.top = newTop + 'px';
+    mapPinMain.style.left = newLeft + 'px';
+
+    window.setAddressFieldValue(window.mapPinMainCoordinates.x, window.mapPinMainCoordinates.y);
+  }
+
+  function onMouseUp(upEvt) {
+    upEvt.preventDefault();
+
+    window.setAddressFieldValue(window.mapPinMainCoordinates.x, window.mapPinMainCoordinates.y);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
 
 function toggleFilterForm(isDisabled) {
   var fields = filterForm.querySelectorAll('fieldset, .map__filter');
