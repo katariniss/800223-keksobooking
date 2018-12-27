@@ -123,6 +123,11 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       newLeft = MAIN_PIN_MAX_X;
     }
 
+    window.mapPinMainCoordinates = {
+      x: newLeft,
+      y: newTop
+    };
+
     mapPinMain.style.top = newTop + 'px';
     mapPinMain.style.left = newLeft + 'px';
 
