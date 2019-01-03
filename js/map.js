@@ -99,10 +99,10 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       y: moveEvt.clientY
     };
 
-    window.mapPinMainCoordinates = {
-      x: mapPinMain.offsetLeft - shift.x,
-      y: mapPinMain.offsetTop - shift.y
-    };
+    // window.mapPinMainCoordinates = {
+    //   x: mapPinMain.offsetLeft - shift.x,
+    //   y: mapPinMain.offsetTop - shift.y
+    // };
 
     var newTop = (mapPinMain.offsetTop - shift.y);
     var newLeft = (mapPinMain.offsetLeft - shift.x);
@@ -131,7 +131,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     mapPinMain.style.top = newTop + 'px';
     mapPinMain.style.left = newLeft + 'px';
 
-    window.setAddressFieldValue(window.mapPinMainCoordinates.x, window.mapPinMainCoordinates.y);
+    window.setAddressFieldValue(newLeft, newTop);
   }
 
   function onMouseUp(upEvt) {
