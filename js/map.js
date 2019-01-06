@@ -1,57 +1,40 @@
 'use strict';
 
-var MAIN_PIN_WIDTH = 65;
-var MAIN_PIN_HEIGHT = 87;
-
 var MAIN_PIN_MIN_X = 0;
 var MAIN_PIN_MAX_X = 1135;
 var MAIN_PIN_MIN_Y = 110;
 var MAIN_PIN_MAX_Y = 630;
 
-var filterForm = document.querySelector('.map__filters');
-var adForm = document.querySelector('.ad-form');
-
 var map = document.querySelector('.map');
 var mapPinMain = map.querySelector('.map__pin--main');
-var clearButton = adForm.querySelector('.ad-form__reset');
-var accomodationTypeInForm = document.getElementById('type');
-var priceInForm = document.getElementById('price');
-var timeIn = document.getElementById('timein');
-var timeOut = document.getElementById('timeout');
-var roomsNumberInForm = document.getElementById('room_number');
-var capacityInForm = document.getElementById('capacity');
-var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
 
-var ROOMS_SYNC_CAPACITY = {
-  1: [getCapacityOptionBy(1)],
-  2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
-  3: [getCapacityOptionBy(1), getCapacityOptionBy(2), getCapacityOptionBy(3)],
-  100: [getCapacityOptionBy(0)]
-};
+window.renderMap = renderMap;
+window.resetMapToDefault = resetMapToDefault;
 
-resetMapToDefault();
+function resetMapToDefault() {
+  map.classList.add('map--faded');
+  mapPinMain.addEventListener('mouseup', window.renderMap);
+  removePins();
+  var openedCard = document.querySelector('.map__card.popup');
+  if (openedCard) {
+    removeElementFromDom(openedCard);
+  }
+}
 
 function renderMap() {
   var advertisements = window.generateAds();
 
   createPinsOnMap(advertisements);
   map.classList.remove('map--faded');
-  toggleAdForm(false);
-  toggleFilterForm(false);
-  setAddressFieldValue();
+  window.toggleForms(false);
   mapPinMain.removeEventListener('mouseup', renderMap);
 }
 
-function resetMapToDefault() {
-  map.classList.add('map--faded');
-  toggleAdForm(true);
-  toggleFilterForm(true);
-  setAddressFieldValue();
-  mapPinMain.addEventListener('mouseup', renderMap);
-  removePins();
-  var openedCard = document.querySelector('.map__card.popup');
-  if (openedCard) {
-    removeElementFromDom(openedCard);
+function removePins() {
+  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+  for (var i = 0; i < pins.length; i++) {
+    var currentPin = pins[i];
+    removeElementFromDom(currentPin);
   }
 }
 
@@ -75,11 +58,6 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-
-    // window.mapPinMainCoordinates = {
-    //   x: mapPinMain.offsetLeft - shift.x,
-    //   y: mapPinMain.offsetTop - shift.y
-    // };
 
     var newTop = (mapPinMain.offsetTop - shift.y);
     var newLeft = (mapPinMain.offsetLeft - shift.x);
@@ -122,126 +100,6 @@ mapPinMain.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-
-function toggleFilterForm(isDisabled) {
-  var fields = filterForm.querySelectorAll('fieldset, .map__filter');
-
-  for (var i = 0; i < fields.length; i++) {
-    fields[i].disabled = isDisabled;
-  }
-  if (isDisabled) {
-    filterForm.reset();
-  }
-}
-
-function toggleAdForm(isDisabled) {
-  var fields = adForm.querySelectorAll('fieldset');
-
-  for (var i = 0; i < fields.length; i++) {
-    fields[i].disabled = isDisabled;
-  }
-  if (isDisabled) {
-    adForm.reset();
-    adForm.classList.add('ad-form--disabled');
-  } else {
-    adForm.classList.remove('ad-form--disabled');
-  }
-}
-
-clearButton.addEventListener('click', resetMapToDefault);
-
-function removePins() {
-  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-  for (var i = 0; i < pins.length; i++) {
-    var currentPin = pins[i];
-    removeElementFromDom(currentPin);
-  }
-}
-
-function getPriceByAccomodation() {
-  switch (accomodationTypeInForm.value) {
-    case 'palace':
-      priceInForm.min = '10000';
-      priceInForm.placeholder = '10000';
-      break;
-    case 'flat':
-      priceInForm.min = '1000';
-      priceInForm.placeholder = '1000';
-      break;
-    case 'bungalo':
-      priceInForm.min = '0';
-      priceInForm.placeholder = '0';
-      break;
-    case 'house':
-      priceInForm.min = '5000';
-      priceInForm.placeholder = '5000';
-  }
-}
-
-accomodationTypeInForm.addEventListener('change', getPriceByAccomodation);
-
-timeIn.addEventListener('change', function () {
-  timeOut.value = timeIn.value;
-});
-
-timeOut.addEventListener('change', function () {
-  timeIn.value = timeOut.value;
-});
-
-syncRoomsNumberWithCapacity();
-
-roomsNumberInForm.addEventListener('change', syncRoomsNumberWithCapacity);
-
-function syncRoomsNumberWithCapacity() {
-  for (var i = 0; i < capacityOptions.length; i++) {
-    capacityOptions[i].disabled = true;
-  }
-
-  var availableCapacityOptions = getAvailableCapacityOptions(roomsNumberInForm.value);
-
-  var needToChangeCapacityValue = true;
-  for (var k = 0; k < availableCapacityOptions.length; k++) {
-    needToChangeCapacityValue = needToChangeCapacityValue && !(availableCapacityOptions[k].value === capacityInForm.value);
-  }
-
-  for (var j = 0; j < availableCapacityOptions.length; j++) {
-    var currentAvailableOption = availableCapacityOptions[j];
-    currentAvailableOption.removeAttribute('disabled');
-  }
-  availableCapacityOptions[0].selected = true;
-}
-
-function getAvailableCapacityOptions(roomsNumber) {
-  return ROOMS_SYNC_CAPACITY[roomsNumber];
-}
-
-function getCapacityOptionBy(numberOfPeople) {
-  var numberOfPeopleStr = numberOfPeople.toString();
-  for (var i = 0; i < capacityOptions.length; i++) {
-    var currentCapacityOption = capacityOptions[i];
-    if (currentCapacityOption.value === numberOfPeopleStr) {
-      return currentCapacityOption;
-    }
-  }
-  return undefined;
-}
-
-function getOffset(el) {
-  var rect = el.getBoundingClientRect();
-  return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY
-  };
-}
-
-function setAddressFieldValue() {
-  var elementCoordinates = getOffset(mapPinMain);
-  var addressField = document.querySelector('#address');
-  var x = elementCoordinates.left + MAIN_PIN_WIDTH / 2;
-  var y = elementCoordinates.top + MAIN_PIN_HEIGHT / 2;
-
-  addressField.value = x + ', ' + y;
-}
 
 function createPinsOnMap(objects) {
   var mapPins = document.querySelector('.map__pins');
