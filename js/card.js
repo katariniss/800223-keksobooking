@@ -64,6 +64,10 @@
         cardFeaturesList.appendChild(getSingleFeature(features[i]));
       }
 
+      if (window.isEmptyArray) {
+        cardFeaturesList.classList.add('hidden');
+      }
+
       function getSingleFeature(feature) {
         var item = document.createElement('li');
 
@@ -80,6 +84,10 @@
 
       for (var i = 0; i < photos.length; i++) {
         cardPhotosBlock.appendChild(getSinglePhoto(photos[i]));
+      }
+
+      if (window.isEmptyArray) {
+        cardPhotosBlock.classList.add('hidden');
       }
 
       function getSinglePhoto(photo) {
