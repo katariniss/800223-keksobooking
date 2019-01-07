@@ -1,8 +1,11 @@
 'use strict';
 
 (function () {
-  window.removeElementFromDom = removeElementFromDom;
-  window.isEmptyArray = isEmptyArray;
+
+  window.util = {
+    removeElementFromDom: removeElementFromDom,
+    isEmptyArray: isEmptyArray,
+  };
 
   function removeElementFromDom(element) {
     element.parentNode.removeChild(element);

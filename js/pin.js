@@ -29,7 +29,7 @@
       pin.addEventListener('click', function () {
         var openedCard = document.querySelector('.map__card.popup');
         if (openedCard) {
-          window.removeElementFromDom(openedCard);
+          window.util.removeElementFromDom(openedCard);
         }
         window.showPinCard(object);
       });

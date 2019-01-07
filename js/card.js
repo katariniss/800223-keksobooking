@@ -27,12 +27,12 @@
     var closePopupButton = card.querySelector('.popup__close');
 
     closePopupButton.addEventListener('click', function () {
-      window.removeElementFromDom(card);
+      window.util.removeElementFromDom(card);
     });
 
     function closePopup(evt) {
       if (evt.keyCode === 27) {
-        window.removeElementFromDom(card);
+        window.util.removeElementFromDom(card);
         document.removeEventListener('keydown', closePopup);
       }
     }
@@ -64,7 +64,7 @@
         cardFeaturesList.appendChild(getSingleFeature(features[i]));
       }
 
-      if (window.isEmptyArray) {
+      if (window.util.isEmptyArray) {
         cardFeaturesList.classList.add('hidden');
       }
 
@@ -86,7 +86,7 @@
         cardPhotosBlock.appendChild(getSinglePhoto(photos[i]));
       }
 
-      if (window.isEmptyArray) {
+      if (window.util.isEmptyArray) {
         cardPhotosBlock.classList.add('hidden');
       }
 
