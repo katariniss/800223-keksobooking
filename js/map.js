@@ -29,12 +29,19 @@ function resetMapToDefault() {
 }
 
 function renderMap() {
-  var advertisements = window.generateAds();
+  window.backend.loadAdvertisements(onSuccess, onError);
 
-  window.createPinsOnMap(advertisements);
   map.classList.remove('map--faded');
   window.toggleForms(false);
   mapPinMain.removeEventListener('mouseup', renderMap);
+}
+
+function onError() {
+
+}
+
+function onSuccess(data) {
+  window.createPinsOnMap(data);
 }
 
 function removePins() {
