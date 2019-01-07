@@ -3,8 +3,6 @@
 (function () {
   window.showPinCard = showPinCard;
 
-  showPinCard();
-
   function showPinCard(object) {
     var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
     var card = cardTemplate.cloneNode(true);
