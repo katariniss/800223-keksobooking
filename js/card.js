@@ -11,13 +11,19 @@
     var cardPhotoItem = cardPhotosBlock.querySelector('.popup__photo');
     var cardAvatar = card.querySelector('.popup__avatar');
 
+    var offerDescription = object.offer.description;
+
     setElementContent('.popup__title', object.offer.title);
     setElementContent('.popup__text--address', object.offer.address);
     setElementContent('.popup__text--price', object.offer.price + '₽/ночь');
     setElementContent('.popup__type', getAccomodation(object.offer.type));
     setElementContent('.popup__text--capacity', object.offer.rooms + ' комнаты для ' + object.offer.guests + ' гостей');
     setElementContent('.popup__text--time', 'Заезд после ' + object.offer.checkin + ', выезд до ' + object.offer.checkout);
-    setElementContent('.popup__description', object.offer.description);
+    if (offerDescription) {
+      setElementContent('.popup__description', offerDescription);
+    } else {
+      card.querySelector('.popup__description').classList.add('hidden');
+    }
 
     cardAvatar.src = object.author.avatar;
 
