@@ -5,6 +5,7 @@
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 87;
 
+
   var filterForm = document.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
   var clearButton = adForm.querySelector('.ad-form__reset'); var accomodationTypeInForm = document.getElementById('type');
