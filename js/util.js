@@ -5,6 +5,7 @@
   window.util = {
     removeElementFromDom: removeElementFromDom,
     isEmptyArray: isEmptyArray,
+    hideElement: hideElement,
   };
 
   function removeElementFromDom(element) {
@@ -16,6 +17,10 @@
       return true;
     }
     return false;
+  }
+
+  function hideElement(element) {
+    element.classList.add('hidden');
   }
 }
 )();

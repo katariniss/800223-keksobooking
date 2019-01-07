@@ -22,7 +22,7 @@
     if (offerDescription) {
       setElementContent('.popup__description', offerDescription);
     } else {
-      card.querySelector('.popup__description').classList.add('hidden');
+      window.util.hideElement(card.querySelector('.popup__description'));
     }
 
     cardAvatar.src = object.author.avatar;
@@ -71,7 +71,7 @@
       }
 
       if (window.util.isEmptyArray) {
-        cardFeaturesList.classList.add('hidden');
+        window.util.hideElement(cardFeaturesList);
       }
 
       function getSingleFeature(feature) {
