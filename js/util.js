@@ -13,10 +13,7 @@
   }
 
   function isEmptyArray(array) {
-    if (!array || array.length === 0) {
-      return true;
-    }
-    return false;
+    return !array || array.length === 0;
   }
 
   function hideElement(element) {

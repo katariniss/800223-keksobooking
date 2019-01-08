@@ -92,7 +92,7 @@
         cardPhotosBlock.appendChild(getSinglePhoto(photos[i]));
       }
 
-      if (window.util.isEmptyArray) {
+      if (window.util.isEmptyArray(photos)) {
         cardPhotosBlock.classList.add('hidden');
       }
 
