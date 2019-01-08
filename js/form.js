@@ -18,6 +18,8 @@
 
   var mapPinMain = document.querySelector('.map__pin--main');
 
+  var main = document.querySelector('main');
+
   var ROOMS_SYNC_CAPACITY = {
     1: [getCapacityOptionBy(1)],
     2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
@@ -44,7 +46,6 @@
       filterForm.reset();
     }
   }
-
 
   function toggleAdForm(isDisabled) {
     var fields = adForm.querySelectorAll('fieldset');
@@ -148,4 +149,39 @@
         priceInForm.placeholder = '5000';
     }
   }
+
+  adForm.addEventListener('submit', function (evt) {
+    if (adForm.checkValidity()) {
+      evt.preventDefault();
+    } else {
+      return;
+    }
+    var adFormData = new FormData(adForm);
+    window.backend.submitAdvertisement(adFormData, onSuccess, onError);
+
+    function onError() {
+      showPopup('error');
+    }
+
+    function onSuccess() {
+      window.resetAppToDefault();
+
+      showPopup('success');
+    }
+
+    function showPopup(templateName) {
+      var messageTemplate = document.querySelector('#' + templateName)
+        .content.querySelector('.' + templateName);
+
+      var message = messageTemplate.cloneNode(true);
+
+      main.appendChild(message);
+
+      var tryAgainButton = message.querySelector('button');
+
+      tryAgainButton.addEventListener('click', function () {
+        window.util.removeElementFromDom(message);
+      });
+    }
+  });
 })();

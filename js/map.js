@@ -19,7 +19,7 @@ function resetMapToDefault() {
   removePins();
   var openedCard = document.querySelector('.map__card.popup');
   if (openedCard) {
-    window.removeElementFromDom(openedCard);
+    window.util.removeElementFromDom(openedCard);
   }
 
   window.mapPinMainCoordinates = {
@@ -29,19 +29,26 @@ function resetMapToDefault() {
 }
 
 function renderMap() {
-  var advertisements = window.generateAds();
+  window.backend.loadAdvertisements(onSuccess, onError);
 
-  window.createPinsOnMap(advertisements);
   map.classList.remove('map--faded');
   window.toggleForms(false);
   mapPinMain.removeEventListener('mouseup', renderMap);
+}
+
+function onError() {
+
+}
+
+function onSuccess(data) {
+  window.createPinsOnMap(data);
 }
 
 function removePins() {
   var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pins.length; i++) {
     var currentPin = pins[i];
-    window.removeElementFromDom(currentPin);
+    window.util.removeElementFromDom(currentPin);
   }
 }
 

@@ -88,7 +88,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form name="ad-form" class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -106,8 +106,8 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" pattern=".{30,100}" placeholder="Милая, уютная квартирка в центре Токио"
-            required title="От 30 до 100 символов">
+          <input id="title" name="title" type="text" pattern=".{30,100}" placeholder="Милая, уютная квартирка в центре Токио" required
+            title="От 30 до 100 символов">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес</label>
@@ -260,6 +260,7 @@
     <div class="success">
       <p class="success__message">Ваше объявление
         <br>успешно размещено!</p>
+      <button class="error__button" href="#">Ура, я рад</button>
     </div>
   </template>
 
@@ -276,6 +277,7 @@
   <script src="js/form.js"></script>
   <script src="js/data.js"></script>
   <script src="js/card.js"></script>
+  <script src="js/backend.js"></script>
   <script src="js/main.js"></script>
 </body>
 

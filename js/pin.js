@@ -10,7 +10,10 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < objects.length; i++) {
-      fragment.appendChild(getSinglePin(objects[i]));
+      var currentObj = objects[i];
+      if (currentObj.offer) {
+        fragment.appendChild(getSinglePin(currentObj));
+      }
     }
 
     mapPins.appendChild(fragment);
@@ -26,7 +29,7 @@
       pin.addEventListener('click', function () {
         var openedCard = document.querySelector('.map__card.popup');
         if (openedCard) {
-          window.removeElementFromDom(openedCard);
+          window.util.removeElementFromDom(openedCard);
         }
         window.showPinCard(object);
       });

@@ -3,8 +3,6 @@
 (function () {
   window.showPinCard = showPinCard;
 
-  showPinCard();
-
   function showPinCard(object) {
     var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
     var card = cardTemplate.cloneNode(true);
@@ -13,13 +11,19 @@
     var cardPhotoItem = cardPhotosBlock.querySelector('.popup__photo');
     var cardAvatar = card.querySelector('.popup__avatar');
 
+    var offerDescription = object.offer.description;
+
     setElementContent('.popup__title', object.offer.title);
     setElementContent('.popup__text--address', object.offer.address);
     setElementContent('.popup__text--price', object.offer.price + '₽/ночь');
     setElementContent('.popup__type', getAccomodation(object.offer.type));
     setElementContent('.popup__text--capacity', object.offer.rooms + ' комнаты для ' + object.offer.guests + ' гостей');
     setElementContent('.popup__text--time', 'Заезд после ' + object.offer.checkin + ', выезд до ' + object.offer.checkout);
-    setElementContent('.popup__description', object.offer.description);
+    if (offerDescription) {
+      setElementContent('.popup__description', offerDescription);
+    } else {
+      window.util.hideElement(card.querySelector('.popup__description'));
+    }
 
     cardAvatar.src = object.author.avatar;
 
@@ -29,12 +33,12 @@
     var closePopupButton = card.querySelector('.popup__close');
 
     closePopupButton.addEventListener('click', function () {
-      window.removeElementFromDom(card);
+      window.util.removeElementFromDom(card);
     });
 
     function closePopup(evt) {
       if (evt.keyCode === 27) {
-        window.removeElementFromDom(card);
+        window.util.removeElementFromDom(card);
         document.removeEventListener('keydown', closePopup);
       }
     }
@@ -66,6 +70,10 @@
         cardFeaturesList.appendChild(getSingleFeature(features[i]));
       }
 
+      if (window.util.isEmptyArray(features)) {
+        window.util.hideElement(cardFeaturesList);
+      }
+
       function getSingleFeature(feature) {
         var item = document.createElement('li');
 
@@ -82,6 +90,10 @@
 
       for (var i = 0; i < photos.length; i++) {
         cardPhotosBlock.appendChild(getSinglePhoto(photos[i]));
+      }
+
+      if (window.util.isEmptyArray(photos)) {
+        cardPhotosBlock.classList.add('hidden');
       }
 
       function getSinglePhoto(photo) {
