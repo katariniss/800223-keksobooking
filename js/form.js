@@ -18,8 +18,6 @@
 
   var mapPinMain = document.querySelector('.map__pin--main');
 
-  var submitButton = document.querySelector('.ad-form__submit');
-
   var main = document.querySelector('main');
 
   var ROOMS_SYNC_CAPACITY = {
@@ -152,7 +150,7 @@
     }
   }
 
-  submitButton.addEventListener('click', function (evt) {
+  adForm.addEventListener('submit', function (evt) {
     if (adForm.checkValidity()) {
       evt.preventDefault();
     } else {
