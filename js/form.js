@@ -25,6 +25,23 @@
     100: [getCapacityOptionBy(0)]
   };
 
+  var submitButton = document.querySelector('.ad-form__submit');
+
+  submitButton.addEventListener('click', function (evt) {
+    if (adForm.checkValidity()) {
+      evt.preventDefault();
+    }
+    var adFormData = new FormData(adForm);
+    window.backend.submitAdvertisement(adFormData, onSuccess, onError);
+    function onError() {
+
+    }
+
+    function onSuccess() {
+      window.resetAppToDefault();
+    }
+  });
+
   window.toggleForms = toggleForms;
   window.setAddressFieldValue = setAddressFieldValue;
 
