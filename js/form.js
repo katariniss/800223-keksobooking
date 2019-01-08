@@ -162,24 +162,28 @@
     window.backend.submitAdvertisement(adFormData, onSuccess, onError);
 
     function onError() {
-      var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-      var errorMessage = errorMessageTemplate.cloneNode(true);
-
-      main.appendChild(errorMessage);
-
-      var tryAgainButton = errorMessage.querySelector('.error__button');
-
-      tryAgainButton.addEventListener('click', function () {
-        window.util.removeElementFromDom(errorMessage);
-      });
+      showPopup('error');
     }
 
     function onSuccess() {
       window.resetAppToDefault();
 
-      var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-      var successMessage = successMessageTemplate.cloneNode(true);
-      main.appendChild(successMessage);
+      showPopup('success');
+    }
+
+    function showPopup(templateName) {
+      var messageTemplate = document.querySelector('#' + templateName)
+        .content.querySelector('.' + templateName);
+
+      var message = messageTemplate.cloneNode(true);
+
+      main.appendChild(message);
+
+      var tryAgainButton = message.querySelector('button');
+
+      tryAgainButton.addEventListener('click', function () {
+        window.util.removeElementFromDom(message);
+      });
     }
   });
 })();
