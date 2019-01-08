@@ -18,29 +18,16 @@
 
   var mapPinMain = document.querySelector('.map__pin--main');
 
+  var submitButton = document.querySelector('.ad-form__submit');
+
+  var main = document.querySelector('main');
+
   var ROOMS_SYNC_CAPACITY = {
     1: [getCapacityOptionBy(1)],
     2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
     3: [getCapacityOptionBy(1), getCapacityOptionBy(2), getCapacityOptionBy(3)],
     100: [getCapacityOptionBy(0)]
   };
-
-  var submitButton = document.querySelector('.ad-form__submit');
-
-  submitButton.addEventListener('click', function (evt) {
-    if (adForm.checkValidity()) {
-      evt.preventDefault();
-    }
-    var adFormData = new FormData(adForm);
-    window.backend.submitAdvertisement(adFormData, onSuccess, onError);
-    function onError() {
-
-    }
-
-    function onSuccess() {
-      window.resetAppToDefault();
-    }
-  });
 
   window.toggleForms = toggleForms;
   window.setAddressFieldValue = setAddressFieldValue;
@@ -61,7 +48,6 @@
       filterForm.reset();
     }
   }
-
 
   function toggleAdForm(isDisabled) {
     var fields = adForm.querySelectorAll('fieldset');
@@ -165,4 +151,35 @@
         priceInForm.placeholder = '5000';
     }
   }
+
+  submitButton.addEventListener('click', function (evt) {
+    if (adForm.checkValidity()) {
+      evt.preventDefault();
+    } else {
+      return;
+    }
+    var adFormData = new FormData(adForm);
+    window.backend.submitAdvertisement(adFormData, onSuccess, onError);
+
+    function onError() {
+      var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+      var errorMessage = errorMessageTemplate.cloneNode(true);
+
+      main.appendChild(errorMessage);
+
+      var tryAgainButton = errorMessage.querySelector('.error__button');
+
+      tryAgainButton.addEventListener('click', function () {
+        window.util.removeElementFromDom(errorMessage);
+      });
+    }
+
+    function onSuccess() {
+      window.resetAppToDefault();
+
+      var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+      var successMessage = successMessageTemplate.cloneNode(true);
+      main.appendChild(successMessage);
+    }
+  });
 })();
