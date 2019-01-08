@@ -70,7 +70,7 @@
         cardFeaturesList.appendChild(getSingleFeature(features[i]));
       }
 
-      if (window.util.isEmptyArray) {
+      if (window.util.isEmptyArray(features)) {
         window.util.hideElement(cardFeaturesList);
       }
 
