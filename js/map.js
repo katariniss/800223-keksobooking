@@ -41,7 +41,8 @@ function onError() {
 }
 
 function onSuccess(data) {
-  window.createPinsOnMap(data);
+  window.advertisements = data;
+  window.createPinsOnMap();
 }
 
 function removePins() {
