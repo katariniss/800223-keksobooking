@@ -4,8 +4,7 @@
 
   window.createPinsOnMap = createPinsOnMap;
 
-  function createPinsOnMap() {
-    var objects = window.advertisements;
+  function createPinsOnMap(objects) {
     var mapPins = document.querySelector('.map__pins');
     var pinTemplate = document.querySelector('#pin').content.querySelector('button');
     var fragment = document.createDocumentFragment();

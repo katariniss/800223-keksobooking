@@ -13,13 +13,17 @@
       return advertisement.offer.type === housingTypeElement.value;
     });
 
-    for (var i = 0; i < window.advertisements.length; i++) {
-      var currentAd = window.advertisements[i];
-      if (advertisementsFilteredByType.indexOf(currentAd) === -1) {
-        var adTitle = document.querySelector('[alt="' + currentAd.offer.title + '"]');
-        window.util.removeElementFromDom(adTitle.parentElement);
-      }
-    }
+    window.removePins();
+
+    window.createPinsOnMap(advertisementsFilteredByType);
+
+    // for (var i = 0; i < window.advertisements.length; i++) {
+    //   var currentAd = window.advertisements[i];
+    //   if (advertisementsFilteredByType.indexOf(currentAd) === -1) {
+    //     var adTitle = document.querySelector('[alt="' + currentAd.offer.title + '"]');
+    //     window.util.removeElementFromDom(adTitle.parentElement);
+    //   }
+    // }
   });
 }
 )();
