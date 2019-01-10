@@ -5,6 +5,7 @@
   window.createPinsOnMap = createPinsOnMap;
 
   function createPinsOnMap(objects) {
+    objects = objects.slice(0, 5);
     var mapPins = document.querySelector('.map__pins');
     var pinTemplate = document.querySelector('#pin').content.querySelector('button');
     var fragment = document.createDocumentFragment();
