@@ -5,14 +5,21 @@
   var housingRoomsElement = document.querySelector('#housing-rooms');
   var housingGuestsElement = document.querySelector('#housing-guests');
   var housingPriceElement = document.querySelector('#housing-price');
+  var featuresElement = document.querySelector('#housing-features');
 
-  housingTypeElement.addEventListener('change', handleFilterChange);
+  housingTypeElement.addEventListener('change', debouncedHandle);
 
-  housingRoomsElement.addEventListener('change', handleFilterChange);
+  housingRoomsElement.addEventListener('change', debouncedHandle);
 
-  housingGuestsElement.addEventListener('change', handleFilterChange);
+  housingGuestsElement.addEventListener('change', debouncedHandle);
 
-  housingPriceElement.addEventListener('change', handleFilterChange);
+  housingPriceElement.addEventListener('change', debouncedHandle);
+
+  featuresElement.addEventListener('change', debouncedHandle);
+
+  function debouncedHandle() {
+    window.debounce(handleFilterChange)();
+  }
 
   function handleFilterChange() {
     var filteredByType = window.advertisements.filter(filterByType);
@@ -99,10 +106,6 @@
 
     return false;
   }
-
-  var featuresElement = document.querySelector('#housing-features');
-
-  featuresElement.addEventListener('change', handleFilterChange);
 
   function getSelectedFeatures() {
     var checkboxes = featuresElement.querySelectorAll('.map__checkbox:checked');
