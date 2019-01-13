@@ -19,15 +19,17 @@
     var filteredByRooms = window.advertisements.filter(filterByRooms);
     var filteredByGuests = window.advertisements.filter(filterByGuests);
     var filteredByPrice = window.advertisements.filter(filterByPriceRange);
+    var filteredByFeatures = window.advertisements.filter(filterByFeatures);
 
     var firstIntersection = intersect(filteredByType, filteredByRooms);
 
     var secondIntersection = intersect(firstIntersection, filteredByGuests);
 
-    var filteredAds = intersect(secondIntersection, filteredByPrice);
+    var thirdIntersection = intersect(secondIntersection, filteredByPrice);
+
+    var filteredAds = intersect(thirdIntersection, filteredByFeatures);
 
     window.removePins();
-
     window.createPinsOnMap(filteredAds);
 
     var mapCard = document.querySelector('.map__card');
@@ -96,6 +98,34 @@
     }
 
     return false;
+  }
+
+  var featuresElement = document.querySelector('#housing-features');
+
+  featuresElement.addEventListener('change', handleFilterChange);
+
+  function getSelectedFeatures() {
+    var checkboxes = featuresElement.querySelectorAll('.map__checkbox:checked');
+    var featuresList = [];
+
+    for (var i = 0; i < checkboxes.length; i++) {
+      var currentCheckbox = checkboxes[i];
+      featuresList.push(currentCheckbox.value);
+    }
+    return featuresList;
+  }
+
+  function filterByFeatures(advertisement) {
+
+    var selectedFeatures = getSelectedFeatures();
+
+    if (selectedFeatures.length === 0) {
+      return true;
+    }
+
+    var c = intersect(selectedFeatures, advertisement.offer.features);
+
+    return (c.length === selectedFeatures.length);
   }
 }
 )();
