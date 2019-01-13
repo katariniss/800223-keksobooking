@@ -5,6 +5,12 @@
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 87;
 
+  var ROOMS_SYNC_CAPACITY = {
+    1: [getCapacityOptionBy(1)],
+    2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
+    3: [getCapacityOptionBy(1), getCapacityOptionBy(2), getCapacityOptionBy(3)],
+    100: [getCapacityOptionBy(0)]
+  };
 
   var filterForm = document.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
@@ -19,13 +25,6 @@
   var mapPinMain = document.querySelector('.map__pin--main');
 
   var main = document.querySelector('main');
-
-  var ROOMS_SYNC_CAPACITY = {
-    1: [getCapacityOptionBy(1)],
-    2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
-    3: [getCapacityOptionBy(1), getCapacityOptionBy(2), getCapacityOptionBy(3)],
-    100: [getCapacityOptionBy(0)]
-  };
 
   window.toggleForms = toggleForms;
   window.setAddressFieldValue = setAddressFieldValue;
