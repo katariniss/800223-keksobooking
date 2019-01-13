@@ -41,93 +41,70 @@
     window.createPinsOnMap(filteredAds);
 
     var mapCard = document.querySelector('.map__card');
-
-    for (var i = 0; i < window.advertisements.length; i++) {
-      var currentAd = window.advertisements[i];
-
-      if (filteredAds.indexOf(currentAd) === -1) {
-        if (mapCard) {
-          var cardTitle = mapCard.querySelector('.popup__title').textContent;
-          if (cardTitle === currentAd.offer.title) {
-            window.util.removeElementFromDom(mapCard);
-          }
-        }
-      }
+    if (mapCard) {
+      window.util.removeElementFromDom(mapCard);
     }
-    function filterByType(advertisement) {
-      if (values.type === 'any') {
-        return true;
-      }
 
-      return advertisement.offer.type === values.type;
+    function filterByType(advertisement) {
+      return advertisement.offer.type === values.type || values.type === 'any';
     }
 
     function filterByRooms(advertisement) {
-      if (values.rooms === 'any') {
-        return true;
-      }
-
-      return advertisement.offer.rooms === Number(values.rooms);
+      return advertisement.offer.rooms === Number(values.rooms) || (values.rooms === 'any');
     }
 
     function filterByGuests(advertisement) {
-      if (values.guests === 'any') {
-        return true;
-      }
-
-      return advertisement.offer.guests === Number(values.guests);
+      return advertisement.offer.guests === Number(values.guests) || values.guests === 'any';
     }
 
 
     function filterByPriceRange(advertisement) {
       var priceRange = values.price;
+      var price = Number(advertisement.offer.price);
 
       if (priceRange === 'any') {
         return true;
       }
 
-      var price = advertisement.offer.price;
-
       switch (priceRange) {
         case 'middle':
           return (price > 10000 && price < 50000);
         case 'low':
-          return (price < 10000);
+          return (price <= 10000);
         case 'high':
-          return (price > 50000);
+          return (price >= 50000);
       }
 
       return false;
     }
 
     function filterByFeatures(advertisement) {
-
       var selectedFeatures = values.features;
+      var isSuitable = true;
 
-      if (selectedFeatures.length === 0) {
-        return true;
+      if (window.util.isEmptyArray(advertisement.offer.features)) {
+        return false;
       }
 
-      var c = intersect(selectedFeatures, advertisement.offer.features);
+      for (var i = 0; i < selectedFeatures.length; i++) {
+        if (advertisement.offer.features.indexOf(selectedFeatures[i]) === -1) {
+          isSuitable = false;
+          break;
+        }
+      }
 
-      return (c.length === selectedFeatures.length);
+      return isSuitable;
     }
-  }
-
-  function intersect(firstArray, secondArray) {
-    return firstArray.filter(function (n) {
-      return secondArray.indexOf(n) !== -1;
-    });
   }
 
   function getSelectedFeatures() {
     var checkboxes = featuresElement.querySelectorAll('.map__checkbox:checked');
     var featuresList = [];
 
-    for (var i = 0; i < checkboxes.length; i++) {
-      var currentCheckbox = checkboxes[i];
-      featuresList.push(currentCheckbox.value);
-    }
+    checkboxes.forEach(function (checkbox) {
+      featuresList.push(checkbox.value);
+    });
+
     return featuresList;
   }
 }

@@ -6,21 +6,21 @@
   var MAIN_PIN_HEIGHT = 87;
 
   var ROOMS_SYNC_CAPACITY = {
-    1: [getCapacityOptionBy(1)],
-    2: [getCapacityOptionBy(1), getCapacityOptionBy(2)],
-    3: [getCapacityOptionBy(1), getCapacityOptionBy(2), getCapacityOptionBy(3)],
-    100: [getCapacityOptionBy(0)]
+    1: ['1'],
+    2: ['1', '2'],
+    3: ['1', '2', '3'],
+    100: ['0']
   };
 
   var filterForm = document.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
-  var clearButton = adForm.querySelector('.ad-form__reset'); var accomodationTypeInForm = document.getElementById('type');
-  var priceInForm = document.getElementById('price');
-  var timeIn = document.getElementById('timein');
-  var timeOut = document.getElementById('timeout');
-  var roomsNumberInForm = document.getElementById('room_number');
-  var capacityInForm = document.getElementById('capacity');
-  var capacityOptions = document.getElementById('capacity').querySelectorAll('option');
+  var clearButton = adForm.querySelector('.ad-form__reset'); var accomodationTypeInForm = document.querySelector('#type');
+  var priceInForm = document.querySelector('#price');
+  var timeIn = document.querySelector('#timein');
+  var timeOut = document.querySelector('#timeout');
+  var roomsNumberInForm = document.querySelector('#room_number');
+  var capacityInForm = document.querySelector('#capacity');
+  var capacityOptions = capacityInForm.querySelectorAll('option');
 
   var mapPinMain = document.querySelector('.map__pin--main');
 
@@ -74,42 +74,21 @@
     timeIn.value = timeOut.value;
   });
 
-  syncRoomsNumberWithCapacity();
+  onRoomsChanged();
 
-  roomsNumberInForm.addEventListener('change', syncRoomsNumberWithCapacity);
+  roomsNumberInForm.addEventListener('change', onRoomsChanged);
 
-  function syncRoomsNumberWithCapacity() {
-    for (var i = 0; i < capacityOptions.length; i++) {
-      capacityOptions[i].disabled = true;
+  function onRoomsChanged() {
+    var availableCapacityOptions = ROOMS_SYNC_CAPACITY[roomsNumberInForm.value];
+    var currentCapcityOption = capacityInForm.querySelector('option[value="' + capacityInForm.value + '"]');
+
+    capacityOptions.forEach(function (option) {
+      option.disabled = availableCapacityOptions.indexOf(option.value) === -1;
+    });
+
+    if (currentCapcityOption.disabled) {
+      capacityInForm.value = availableCapacityOptions[0];
     }
-
-    var availableCapacityOptions = getAvailableCapacityOptions(roomsNumberInForm.value);
-
-    var needToChangeCapacityValue = true;
-    for (var k = 0; k < availableCapacityOptions.length; k++) {
-      needToChangeCapacityValue = needToChangeCapacityValue && !(availableCapacityOptions[k].value === capacityInForm.value);
-    }
-
-    for (var j = 0; j < availableCapacityOptions.length; j++) {
-      var currentAvailableOption = availableCapacityOptions[j];
-      currentAvailableOption.removeAttribute('disabled');
-    }
-    availableCapacityOptions[0].selected = true;
-  }
-
-  function getAvailableCapacityOptions(roomsNumber) {
-    return ROOMS_SYNC_CAPACITY[roomsNumber];
-  }
-
-  function getCapacityOptionBy(numberOfPeople) {
-    var numberOfPeopleStr = numberOfPeople.toString();
-    for (var i = 0; i < capacityOptions.length; i++) {
-      var currentCapacityOption = capacityOptions[i];
-      if (currentCapacityOption.value === numberOfPeopleStr) {
-        return currentCapacityOption;
-      }
-    }
-    return undefined;
   }
 
   function getOffset(el) {
