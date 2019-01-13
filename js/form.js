@@ -150,9 +150,9 @@
     }
   }
 
-  adForm.addEventListener('submit', function (evt) {
+  adForm.addEventListener('submit', function (submitEvt) {
     if (adForm.checkValidity()) {
-      evt.preventDefault();
+      submitEvt.preventDefault();
     } else {
       return;
     }
@@ -177,11 +177,19 @@
 
       main.appendChild(message);
 
-      var tryAgainButton = message.querySelector('button');
-
-      tryAgainButton.addEventListener('click', function () {
+      function closePopupOnClick() {
         window.util.removeElementFromDom(message);
-      });
+        document.removeEventListener('keydown', closePopupOnClick);
+      }
+      document.addEventListener('click', closePopupOnClick);
+
+      function closePopup(evt) {
+        if (evt.keyCode === 27) {
+          window.util.removeElementFromDom(message);
+          document.removeEventListener('keydown', closePopup);
+        }
+      }
+      document.addEventListener('keydown', closePopup);
     }
   });
 })();
