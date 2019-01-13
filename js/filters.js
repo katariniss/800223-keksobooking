@@ -22,19 +22,12 @@
   }
 
   function handleFilterChange() {
-    var filteredByType = window.advertisements.filter(filterByType);
-    var filteredByRooms = window.advertisements.filter(filterByRooms);
-    var filteredByGuests = window.advertisements.filter(filterByGuests);
-    var filteredByPrice = window.advertisements.filter(filterByPriceRange);
-    var filteredByFeatures = window.advertisements.filter(filterByFeatures);
-
-    var firstIntersection = intersect(filteredByType, filteredByRooms);
-
-    var secondIntersection = intersect(firstIntersection, filteredByGuests);
-
-    var thirdIntersection = intersect(secondIntersection, filteredByPrice);
-
-    var filteredAds = intersect(thirdIntersection, filteredByFeatures);
+    var filteredAds = window.advertisements
+      .filter(filterByType)
+      .filter(filterByRooms)
+      .filter(filterByGuests)
+      .filter(filterByPriceRange)
+      .filter(filterByFeatures);
 
     window.removePins();
     window.createPinsOnMap(filteredAds);
