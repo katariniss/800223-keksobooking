@@ -29,6 +29,8 @@
       x: '570px',
       y: '375px'
     };
+
+    mapPinMain.setAttribute('style', 'left: ' + window.mapPinMainCoordinates.x + '; top: ' + window.mapPinMainCoordinates.y);
   }
 
   function renderMap() {
