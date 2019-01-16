@@ -9,7 +9,9 @@
   };
 
   function removeElementFromDom(element) {
-    element.parentNode.removeChild(element);
+    if (element && element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
   }
 
   function isEmptyArray(array) {
