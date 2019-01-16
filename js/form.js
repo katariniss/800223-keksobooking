@@ -105,7 +105,7 @@
     var x = elementCoordinates.left + MAIN_PIN_WIDTH / 2;
     var y = elementCoordinates.top + MAIN_PIN_HEIGHT / 2;
 
-    addressField.value = x + ', ' + y;
+    addressField.value = Math.floor(x) + ', ' + Math.floor(y);
   }
 
   function getPriceByAccomodation() {

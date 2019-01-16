@@ -4,8 +4,8 @@
 
   var MAIN_PIN_MIN_X = 0;
   var MAIN_PIN_MAX_X = 1135;
-  var MAIN_PIN_MIN_Y = 130;
-  var MAIN_PIN_MAX_Y = 630;
+  var MAIN_PIN_MIN_Y = 87;
+  var MAIN_PIN_MAX_Y = 587;
 
   var map = document.querySelector('.map');
   var mapPinMain = map.querySelector('.map__pin--main');
